@@ -1,6 +1,6 @@
-# Belajar Auth Fortify
+# Headless fortify custom ui
 
-Repo ini berisi tentang cara auth menggunakan headless auth fortify, dengan custom login ui.
+Repo ini berisi tentang cara auth menggunakan headless auth fortify, dengan custom ui untuk login.
 <br/>
 
 packages npm yang di pakai pada repo ini  
