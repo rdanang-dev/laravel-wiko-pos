@@ -1,6 +1,6 @@
-@extends('auth.loginTemplate')
+@extends('layouts.login')
 
-@section('loginManager')
+@section('content')
 <div class="col-md-5">
     <img src="{{ asset('img/login.jpeg') }}" alt="login" class="login-card-img">
 </div>
