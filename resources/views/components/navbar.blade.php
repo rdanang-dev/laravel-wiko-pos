@@ -1,5 +1,12 @@
-<nav class="navbar sticky-top navbar-expand-md navbar-light bg-white shadow-sm">
+<nav class="navbar sticky-top navbar-expand navbar-light navbar-custom">
     <div class="container-fluid">
+
+        <div type="button" id="menu-toggle" class="nav-icon1">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
         <a class="navbar-brand" href="{{ url('/') }}">
             {{ config('app.name', 'Laravel') }}
         </a>
@@ -53,3 +60,9 @@
         </div>
     </div>
 </nav>
+
+@push('moreCustomJs')
+@once
+<script src="{{ asset('js/navbar/navbarBurger.js') }}"></script>
+@endonce
+@endpush

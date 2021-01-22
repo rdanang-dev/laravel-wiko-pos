@@ -2,13 +2,10 @@
 
 @section('stylePerPage')
 <link href="{{ asset('css/backend.css') }}" rel="stylesheet">
+<link href="{{ asset('css/navbar/navbarBurger.css') }}" rel="stylesheet">
 @yield('moreCustomStyle')
 @endsection
 
-@section('jsPerPage')
-<script src="{{ asset('js/backend.js') }}" defer></script>
-@yield('moreCustomJs')
-@endsection
 
 @section('body')
 <x-navbar />
@@ -22,4 +19,9 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('jsPerPage')
+<script src="{{ asset('js/backend.js') }}"></script>
+@stack('moreCustomJs')
 @endsection

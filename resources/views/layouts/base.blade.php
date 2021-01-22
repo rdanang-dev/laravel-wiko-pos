@@ -18,6 +18,7 @@
     @yield('body')
 </body>
 <!-- Scripts -->
+
 @yield('jsPerPage')
 
 </html>
