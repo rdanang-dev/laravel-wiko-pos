@@ -1,4 +1,4 @@
-<nav class="navbar sticky-top navbar-expand navbar-light navbar-custom">
+<nav class="navbar sticky-top navbar-expand navbar-dark bg-dark navbar-custom">
     <div type="button" id="menu-toggle" class="nav-icon1 ml-2">
         <span></span>
         <span></span>
