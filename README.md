@@ -1,6 +1,6 @@
-# Headless fortify custom ui
+# Wiko Point of Sales
 
-Repo ini berisi tentang cara auth menggunakan headless auth fortify, dengan custom ui untuk login.
+Repo skripsi untuk pembuatan aplikasi point of sales pada wisata kopi
 <br/>
 
 packages npm yang di pakai pada repo ini  

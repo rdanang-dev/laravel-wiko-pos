@@ -38,10 +38,6 @@
             <a href="#!" class="forgot-password-link">Forgot password?</a>
             <p class="login-card-footer-text">Don't have an account? <a href="{{ route('register') }}"
                     class="text-reset">Register here</a></p>
-            <nav class="login-card-footer-nav">
-                <a href="#!">Terms of use.</a>
-                <a href="#!">Privacy policy</a>
-            </nav>
         </div>
     </div>
 </div>
