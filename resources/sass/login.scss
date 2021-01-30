@@ -48,7 +48,7 @@ body {
     }
 
     &-description {
-        font-size: 25px;
+        font-size: 20px;
         color: #000;
         font-weight: normal;
         margin-bottom: 23px;
@@ -83,33 +83,10 @@ body {
         margin-bottom: 24px;
 
         &:hover {
+            font-size: 14px;
             border: 1px solid #000;
             background-color: transparent;
             color: #000;
-        }
-    }
-
-    .forgot-password-link {
-        font-size: 14px;
-        color: #919aa3;
-        margin-bottom: 12px;
-    }
-
-    &-footer-text {
-        font-size: 16px;
-        color: #0d2366;
-        margin-bottom: max(60px);
-
-        @media (max-width: 767px) {
-            margin-bottom: 24px;
-        }
-    }
-
-    &-footer-nav {
-
-        a {
-            font-size: 14px;
-            color: #919aa3;
         }
     }
 }

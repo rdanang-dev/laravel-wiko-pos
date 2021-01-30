@@ -7,9 +7,9 @@
 
 <div class="col-md-6">
     <div class="card-body ml-lg-5">
-        <div class="login-wrapper">
+        <div class="login-wrapper py-5">
             <div class="brand-wrapper">
-                <img src="{{ asset('img/logo.svg') }}" alt="logo" class="logo">
+                <img src="{{ asset('img/logo.png') }}" alt="logo" class="logo">
             </div>
             <p class="login-card-description">Sign into your account</p>
             <form method="POST" action="{{ route('login') }}">
@@ -35,9 +35,7 @@
                 <input name="login" id="login" class="btn btn-block login-btn mb-4" type="submit" value="Login">
             </form>
 
-            <a href="#!" class="forgot-password-link">Forgot password?</a>
-            <p class="login-card-footer-text">Don't have an account? <a href="{{ route('register') }}"
-                    class="text-reset">Register here</a></p>
+            <a href="#" class="forgot-password-link">Forgot password?</a>
         </div>
     </div>
 </div>
