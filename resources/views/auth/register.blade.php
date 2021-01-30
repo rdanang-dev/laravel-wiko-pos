@@ -1,10 +1,10 @@
 @extends('layouts.login')
 
 @section('content')
-<div class="col-md-5">
+<div class="col-md-6">
     <img src="{{ asset('img/login.jpeg') }}" alt="login" class="login-card-img">
 </div>
-<div class="col-md-7">
+<div class="col-md-6">
     <div class="card-body">
         <div class="brand-wrapper">
             <img src="{{ asset('img/logo.svg') }}" alt="logo" class="logo">
