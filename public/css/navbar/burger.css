@@ -1,4 +1,15 @@
-.nav-icon1 {
+/* body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+#navbar-fixed {
+    overflow: hidden;
+    position: fixed;
+} */
+
+.burger {
     z-index: 999;
     position: relative;
     display: block;
@@ -9,7 +20,7 @@
 }
 
 
-.nav-icon1 span {
+.burger span {
     position: absolute;
     top: 0;
     width: 100%;
@@ -21,45 +32,45 @@
     transition: .20s ease-in-out;
 }
 
-.nav-icon1:hover span:nth-of-type(1) {
+.burger:hover span:nth-of-type(1) {
     top: -3px;
     transition: .20s ease-in-out;
 }
 
-.nav-icon1:hover span:nth-of-type(3) {
+.burger:hover span:nth-of-type(3) {
     top: 19px;
     transition: .20s ease-in-out;
 }
 
-.nav-icon1 span:nth-of-type(1) {
+.burger span:nth-of-type(1) {
     top: 0;
     transition: .50s;
 }
 
-.nav-icon1 span:nth-of-type(2) {
+.burger span:nth-of-type(2) {
     top: 8px;
     transition: .50s;
 }
 
-.nav-icon1 span:nth-of-type(3) {
+.burger span:nth-of-type(3) {
     top: 16px;
     transition: .50s;
 }
 
-.nav-icon1.open span:nth-of-type(1) {
+.burger.open span:nth-of-type(1) {
     top: 8px;
     transform: rotate(135deg);
     transition: .50s;
 }
 
-.nav-icon1.open span:nth-of-type(2) {
+.burger.open span:nth-of-type(2) {
     top: 8px;
     opacity: 0;
     left: -30px;
     transition: .50s;
 }
 
-.nav-icon1.open span:nth-of-type(3) {
+.burger.open span:nth-of-type(3) {
     top: 8px;
     transform: rotate(-135deg);
     transition: .50s;

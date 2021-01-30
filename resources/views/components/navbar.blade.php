@@ -1,5 +1,5 @@
 <nav class="navbar sticky-top navbar-expand navbar-dark bg-dark navbar-custom">
-    <div type="button" id="menu-toggle" class="nav-icon1 ml-2">
+    <div type="button" id="menu-toggle" class="burger ml-2">
         <span></span>
         <span></span>
         <span></span>
@@ -20,7 +20,9 @@
             <li class="nav-item dropdown">
                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false" v-pre>
-                    {{ Auth::user()->name }}
+                    <span class="mr-1 d-none d-inline text-gray-600 small">{{ Auth::user()->name }}</span>
+                    <img class="img-profile rounded-circle border border-light p-0 m-0" height="32px" width="35px"
+                        src="{{ url('storage/public/images/user/steve.png') }}">
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -41,6 +43,6 @@
 
 @push('moreCustomJs')
 @once
-<script src="{{ asset('js/navbar/navbarBurger.js') }}"></script>
+<script src="{{ asset('js/navbar/togglesidebar.js') }}"></script>
 @endonce
 @endpush

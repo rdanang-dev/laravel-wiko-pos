@@ -2,8 +2,8 @@
 
 @section('stylePerPage')
 <link href="{{ asset('css/backend.css') }}" rel="stylesheet">
-<link href="{{ asset('css/navbar/navbarBurger.css') }}" rel="stylesheet">
-{{-- <link href="{{ asset('css/sidebar/sidebar.css') }}" rel="stylesheet"> --}}
+<link href="{{ asset('css/navbar/burger.css') }}" rel="stylesheet">
+<link href="{{ asset('css/sidebar/sidebar.css') }}" rel="stylesheet">
 @yield('moreCustomStyle')
 @endsection
 
@@ -12,7 +12,7 @@
 <x-navbar />
 <div class="wrapper">
     <x-sidebar />
-    <div class="content">
+    <div id="content">
         @yield('content')
     </div>
 </div>
