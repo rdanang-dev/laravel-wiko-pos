@@ -1,6 +1,6 @@
 @extends('layouts.backend')
 @section('moreCustomStyle')
-<link rel="stylesheet" href="{{ asset('css/transaction/style.css') }}">
+<link rel="stylesheet" href="{{ asset('css/cart/style.css') }}">
 @endsection
 @section('content')
 <div class="container-fluid">
