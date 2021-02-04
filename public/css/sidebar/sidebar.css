@@ -109,7 +109,8 @@
 
 .wrapper #content {
     /* padding-left: -250px; */
-    overflow: auto;
+    /* overflow: auto; */
+    overflow: hidden;
 }
 
 @media(max-width:768px) {

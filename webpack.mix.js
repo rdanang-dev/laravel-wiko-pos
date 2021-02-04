@@ -16,3 +16,5 @@ mix.js('resources/js/login.js','public/js')
 
 mix.js('resources/js/backend.js','public/js')
     .sass('resources/sass/backend.scss','public/css')
+
+mix.sass('resources/sass/mdi_icons.scss','public/css')

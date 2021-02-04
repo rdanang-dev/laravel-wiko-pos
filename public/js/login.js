@@ -34378,6 +34378,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/sass/mdi_icons.scss":
+/*!***************************************!*\
+  !*** ./resources/sass/mdi_icons.scss ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./node_modules/popper.js/dist/esm/popper.js":
 /*!***************************************************!*\
   !*** ./node_modules/popper.js/dist/esm/popper.js ***!
@@ -37301,7 +37314,8 @@ process.umask = function() { return 0; };
 /******/ 		var deferredModules = [
 /******/ 			["./resources/js/login.js"],
 /******/ 			["./resources/sass/login.scss"],
-/******/ 			["./resources/sass/backend.scss"]
+/******/ 			["./resources/sass/backend.scss"],
+/******/ 			["./resources/sass/mdi_icons.scss"]
 /******/ 		];
 /******/ 		// no chunk on demand loading
 /******/ 		

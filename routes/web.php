@@ -1,21 +1,16 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Transaction\TransactionController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::view('/', 'auth.login');
 
 Route::middleware('auth')->group(function () {
-    Route::view('/home', 'backend.home');
+    Route::get('/', DashboardController::class)->name('dashboard');
+
+    Route::prefix('transactions')->group(function () {
+        Route::get('index', [TransactionController::class, 'index'])->name('transactions.transaction');
+    });
 });

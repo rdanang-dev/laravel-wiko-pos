@@ -1,4 +1,4 @@
-<nav class="navbar sticky-top navbar-expand navbar-dark bg-dark navbar-custom">
+<nav class="navbar sticky-top navbar-expand navbar-light bg-light shadow">
     <div type="button" id="menu-toggle" class="burger ml-2">
         <span></span>
         <span></span>
@@ -6,7 +6,7 @@
     </div>
 
     <a class="navbar-brand ml-n2" href="{{ url('/') }}">
-        {{ config('app.name', 'Laravel') }}
+        <img src="{{ asset('img/logo.png') }}" height="32px" alt="logo" class="logo">
     </a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -21,7 +21,7 @@
                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false" v-pre>
                     <span class="mr-1 d-none d-inline text-gray-600 small">{{ Auth::user()->name }}</span>
-                    <img class="img-profile rounded-circle border border-light p-0 m-0" height="32px" width="35px"
+                    <img class="img-profile rounded-circle border border-dark p-0 m-0" height="32px" width="35px"
                         src="{{ url('storage/public/images/user/steve.png') }}">
                 </a>
 
