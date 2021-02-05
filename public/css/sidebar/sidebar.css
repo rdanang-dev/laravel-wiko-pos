@@ -30,6 +30,8 @@
 
 #content.active {
     padding-left: 0px;
+    padding-right: 0px;
+    margin: auto;
     transition: all 0.3s;
 }
 
@@ -124,6 +126,7 @@
 
     .wrapper #content {
         padding-left: 0px;
+        padding-right: 0px;
         transition: all 0.3s;
     }
 

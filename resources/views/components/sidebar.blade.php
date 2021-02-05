@@ -15,7 +15,7 @@
             <a href="#"><i class="mdi mdi-cart-arrow-down mr-2"></i>Cart</a>
         </li>
         <li>
-            <a href="#"><i class="mdi mdi-clipboard-outline mr-2"></i>Kelola Menu</a>
+            <a href="{{ route('menus.menu') }}"><i class="mdi mdi-clipboard-outline mr-2"></i>Kelola Menu</a>
         </li>
         <li>
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i

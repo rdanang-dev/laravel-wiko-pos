@@ -1,6 +1,7 @@
 {
     "/js/login.js": "/js/login.js",
     "/js/backend.js": "/js/backend.js",
+    "/js/quagga.min.js": "/js/quagga.min.js",
     "/css/mdi_icons.css": "/css/mdi_icons.css",
     "/css/backend.css": "/css/backend.css",
     "/css/login.css": "/css/login.css"

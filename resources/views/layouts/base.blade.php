@@ -7,9 +7,10 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Wiko-POS</title>
 
     <!-- Styles -->
+    <link rel="shortcut icon" href="{{ asset('img/favicon.jpg') }}" />
     @yield('stylePerPage')
 
 </head>

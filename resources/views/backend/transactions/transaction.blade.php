@@ -12,42 +12,6 @@
         </div>
     </div>
     <div class="row modal-group">
-        <div class="modal fade" id="scanModal" tabindex="-1" role="dialog" aria-labelledby="scanModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="scanModalLabel">Scan Barcode</h5>
-                        <button type="button" class="close close-btn" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="alert alert-danger kode_barang_error" role="alert" hidden="">
-                                    <i class="mdi mdi-information-outline"></i> Kode barang tidak tersedia
-                                </div>
-                            </div>
-                            <div class="col-12 text-center" id="area-scan">
-                            </div>
-                            <div class="col-12 barcode-result" hidden="">
-                                <h5 class="font-weight-bold">Hasil</h5>
-                                <div class="form-border">
-                                    <p class="barcode-result-text"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer" id="btn-scan-action" hidden="">
-                        <button type="button"
-                            class="btn btn-primary btn-sm font-weight-bold rounded-0 btn-continue">Lanjutkan</button>
-                        <button type="button"
-                            class="btn btn-outline-secondary btn-sm font-weight-bold rounded-0 btn-repeat">Ulangi</button>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="modal fade" id="tableModal" tabindex="-1" role="dialog" aria-labelledby="tableModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
@@ -168,10 +132,6 @@
                                                 type="button">
                                                 <i class="mdi mdi-magnify"></i>
                                             </button>
-                                            <button class="btn btn-scan" data-toggle="modal" data-target="#scanModal"
-                                                type="button">
-                                                <i class="mdi mdi-crop-free"></i>
-                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -284,7 +244,6 @@
 @endsection
 @push('moreCustomJs')
 @once
-<script src="{{ asset('plugins/js/quagga.min.js') }}"></script>
 <script src="{{ asset('js/transaction/script.js') }}"></script>
 
 <script type="text/javascript">
@@ -313,54 +272,6 @@ $(document).on('click', '.btn-pilih', function(e){
   });
 });
 
-function startScan() {
-  Quagga.init({
-    inputStream : {
-      name : "Live",
-      type : "LiveStream",
-      target: document.querySelector('#area-scan')
-    },
-    decoder : {
-      readers : ["ean_reader"],
-      multiple: false
-    },
-    locate: false
-  }, function(err) {
-      if (err) {
-          console.log(err);
-          return
-      }
-      console.log("Initialization finished. Ready to start");
-      Quagga.start();
-  });
-
-  Quagga.onDetected(function(data){
-    $('#area-scan').prop('hidden', true);
-    $('#btn-scan-action').prop('hidden', false);
-    $('.barcode-result').prop('hidden', false);
-    $('.barcode-result-text').html(data.codeResult.code);
-    $('.kode_barang_error').prop('hidden', true);
-    stopScan();
-  });
-}
-
-$(document).on('click', '.btn-scan', function(){
-  $('#area-scan').prop('hidden', false);
-  $('#btn-scan-action').prop('hidden', true);
-  $('.barcode-result').prop('hidden', true);
-  $('.barcode-result-text').html('');
-  $('.kode_barang_error').prop('hidden', true);
-  startScan();
-});
-
-$(document).on('click', '.btn-repeat', function(){
-  $('#area-scan').prop('hidden', false);
-  $('#btn-scan-action').prop('hidden', true);
-  $('.barcode-result').prop('hidden', true);
-  $('.barcode-result-text').html('');
-  $('.kode_barang_error').prop('hidden', true);
-  startScan();
-});
 
 $(document).on('click', '.btn-continue', function(e){
   e.stopPropagation();
