@@ -6,7 +6,7 @@
 
     <ul class="list-unstyled components">
         <li>
-            <a href="/"><i class="mdi mdi-view-dashboard mr-2"></i>Dashboard</a>
+            <a href="{{ route('backend.dashboard') }}"><i class="mdi mdi-view-dashboard mr-2"></i>Dashboard</a>
         </li>
         <li>
             <a href="{{ route('transactions.transaction') }}"><i class="mdi mdi-cart-outline mr-2"></i>Transaksi</a>
