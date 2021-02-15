@@ -1,4 +1,4 @@
-<nav class="navbar sticky-top navbar-expand navbar-light bg-light shadow">
+<nav class="navbar fixed-top navbar-expand navbar-light bg-light shadow">
     <div type="button" id="menu-toggle" class="burger ml-2">
         <span></span>
         <span></span>

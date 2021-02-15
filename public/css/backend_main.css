@@ -1,0 +1,12 @@
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        overflow: hidden;
+        background-image: url(../../img/background1.png);
+        background-position: bottom;
+        /* background-size: unset; */
+        background-attachment: fixed;
+        background-repeat: repeat-x;
+    }

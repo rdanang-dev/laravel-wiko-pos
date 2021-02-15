@@ -2,6 +2,7 @@
 
 @section('stylePerPage')
 <link href="{{ asset('css/backend.css') }}" rel="stylesheet">
+<link href="{{ asset('css/backend_main.css') }}" rel="stylesheet">
 <link href="{{ asset('css/navbar/burger.css') }}" rel="stylesheet">
 <link href="{{ asset('css/sidebar/sidebar.css') }}" rel="stylesheet">
 <link href="{{ asset('css/mdi_icons.css') }}" rel="stylesheet">

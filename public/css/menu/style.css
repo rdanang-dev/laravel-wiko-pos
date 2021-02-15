@@ -42,13 +42,13 @@
     border-color: rgba(25, 216, 149, 0);
 }
 
-.table-responsive {
+/* .table-responsive {
     width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: -ms-autohiding-scrollbar;
-}
+} */
 
 .table-custom tbody tr td {
     color: #3b3b3b;

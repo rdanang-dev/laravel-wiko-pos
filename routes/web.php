@@ -18,4 +18,6 @@ Route::middleware('auth')->group(function () {
     Route::prefix('menus')->group(function () {
         Route::get('index', [MenuController::class, 'index'])->name('menus.menu');
     });
+
+    Route::view('test', 'backend.test');
 });

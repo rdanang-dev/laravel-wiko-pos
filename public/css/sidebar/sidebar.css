@@ -1,7 +1,9 @@
 .wrapper {
-    display: flex;
+    margin-top: 66px;
     width: 100%;
-    align-items: stretch;
+    /* height: 120vh; */
+    overflow: auto;
+    /* align-items: stretch; */
 }
 
 .wrapper #sidebar {
@@ -10,7 +12,7 @@
     z-index: 1;
     top: 20;
     left: 0;
-    overflow-x: hidden;
+    overflow-y: auto;
     min-width: 250px;
     max-width: 250px;
     background: #2C3E50;
@@ -37,7 +39,6 @@
 
 .wrapper #sidebar .sidebar-header {
     padding: 20px;
-    /* background: #6d7fcc; */
     background: #2d4255;
 }
 
@@ -54,7 +55,6 @@
 
 #sidebar ul.components {
     padding: 20px 0px;
-    /* border-bottom: 1px solid #47748b; */
 }
 
 #sidebar ul p {
@@ -70,10 +70,8 @@
 }
 
 #sidebar ul li a:hover {
-    /* color: #7386D5; */
     color: #ddd;
     background: #16A085;
-    /* background: #fff; */
 }
 
 #sidebar ul li.active>a,
@@ -109,11 +107,9 @@
 }
 
 
-.wrapper #content {
-    /* padding-left: -250px; */
-    /* overflow: auto; */
+/* .wrapper #content {
     overflow: hidden;
-}
+} */
 
 @media(max-width:768px) {
     .wrapper {
