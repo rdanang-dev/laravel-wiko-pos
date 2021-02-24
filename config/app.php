@@ -181,6 +181,9 @@ return [
 
         // roles and permission from spatie
         Spatie\Permission\PermissionServiceProvider::class,
+
+        //yajra
+        Yajra\DataTables\DataTablesServiceProvider::class,
     ],
 
     /*

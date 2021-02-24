@@ -50,7 +50,7 @@
     -ms-overflow-style: -ms-autohiding-scrollbar;
 } */
 
-.table-custom tbody tr td {
+/* .table-custom tbody tr td {
     color: #3b3b3b;
     font-weight: bold;
     padding: 15px 10px;
@@ -60,7 +60,7 @@
     color: #a3a3a3;
     font-weight: bold;
     padding-bottom: 20px;
-}
+} */
 
 .ammount-box {
     border-radius: 5px;
@@ -193,4 +193,10 @@ video {
 .text-instruction {
     color: #2196f3;
     font-weight: bold;
+}
+
+.table-sticky-header,
+.table-sticky-header th {
+    position: sticky;
+    top: 0;
 }

@@ -14,7 +14,6 @@ const mix = require('laravel-mix');
 mix.js('resources/js/login.js','public/js')
     .sass('resources/sass/login.scss','public/css')
 
+    //backend
 mix.js('resources/js/backend.js','public/js')
-    .sass('resources/sass/backend.scss','public/css')
-
-mix.sass('resources/sass/mdi_icons.scss','public/css')
+   .sass('resources/sass/backend.scss','public/css')
