@@ -2,5 +2,6 @@
     "/js/login.js": "/js/login.js",
     "/js/backend.js": "/js/backend.js",
     "/css/backend.css": "/css/backend.css",
+    "/plugins/css/mdiIcons.css": "/plugins/css/mdiIcons.css",
     "/css/login.css": "/css/login.css"
 }

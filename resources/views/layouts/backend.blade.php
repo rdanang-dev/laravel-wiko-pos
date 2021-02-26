@@ -5,6 +5,7 @@
 <link href="{{ asset('css/backend_main.css') }}" rel="stylesheet">
 <link href="{{ asset('css/navbar/burger.css') }}" rel="stylesheet">
 <link href="{{ asset('css/sidebar/sidebar.css') }}" rel="stylesheet">
+<link href="{{ asset('plugins/css/mdiIcons.css') }}" rel="stylesheet">
 @yield('moreCustomStyle')
 @endsection
 

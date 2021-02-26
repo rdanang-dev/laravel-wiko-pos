@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Menu;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class MenuSeeder extends Seeder
 {
@@ -73,6 +74,7 @@ class MenuSeeder extends Seeder
         $menulists->each(function ($menulist) {
             Menu::create([
                 'nama' => $menulist["nama"],
+                'slug' => Str::slug($menulist["nama"]),
                 'harga' => $menulist["harga"]
             ]);
         });

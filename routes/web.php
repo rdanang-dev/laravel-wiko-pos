@@ -18,6 +18,11 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('menus')->group(function () {
         Route::get('index', [MenuController::class, 'index'])->name('menus.menu');
+        Route::post('index', [MenuController::class, 'store']);
+        Route::put('index', [MenuController::class, 'update']);
+
+        Route::get('index/{menu:slug}/edit', [MenuController::class, 'edit'])->name('menus.update');
+
         Route::get('datatable', [MenuController::class, 'getdatamenu'])->name('menus.datatable');
     });
 

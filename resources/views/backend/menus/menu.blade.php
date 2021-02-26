@@ -5,11 +5,12 @@
 @section('content')
 <div class="container-fluid py-4">
 
+    <!-- Header -->
     <div class="row">
         <div class="col-md-12 col-lg-12">
             <div class="d-flex bd-highlight">
                 <h4 class="flex-grow-1 bd-highlight">Daftar Barang</h4>
-                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addMenuModal">
+                <a href="javascript:void(0)" class="btn btn-primary btnAddMenu">
                     <i class="mdi mdi-plus"></i>
                 </a>
             </div>
@@ -17,12 +18,20 @@
         </div>
     </div>
 
+    <!-- Card DataTables -->
     <div class="row">
         <div class="col-lg-12 col-md-12">
             <div class="card b-radius card-noborder">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
+
+                            @if(session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                            @endif
+
                             <table id="dt" class="table table-striped table-bordered table-sm">
                                 <thead>
                                     <tr>
@@ -43,52 +52,52 @@
         </div>
     </div>
 
-</div>
-</div>
 
+    <!-- Menu Modal -->
+    <div class="modal fade" id="menuModal" tabindex="-1" aria-labelledby="menuModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="menuModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('menus.menu') }}" method="post">
+                        @csrf
+                        <div class="form-group">
+                            <label for="nama">Nama</label>
+                            <input type="text" name="nama" id="nama"
+                                class="form-control @error('nama') is-invalid @enderror">
+                            @error('nama')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-<!-- Add Modal -->
-<div class="modal fade" id="addMenuModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
-    aria-labelledby="addMenuModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addMenuModalLabel">Add Menu</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <table class="table table-striped table-bordered table-sm">
-
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Add to Menu</button>
+                        <div class="form-group">
+                            <label for="harga">Harga</label>
+                            <input type="text" name="harga" id="harga"
+                                class="form-control @error('harga') is-invalid @enderror">
+                            @error('harga')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="btnSubmit"></button>
+                </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
+</div>
 @endsection
 @push('moreCustomJs')
 @once
-<script src="{{ asset('js/menu/dataTablesConf.js') }}"></script>
-{{-- <script>
-    $('#dt').DataTable({
-    processing: true,
-    serverSide: true,
-    ajax: {
-        url: "{{ route('menus.datatable') }}",
-type: 'GET'
-},
-columns: [
-{data:'nama',name:'nama'},
-{data:'harga',name:'harga'},
-],
-order:[0,'asc']
-});
-</script> --}}
+<script src="{{ asset('js/menu/script.js') }}"></script>
 @endonce
 @endpush

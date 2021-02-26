@@ -162,7 +162,7 @@
                 <div class="card card-noborder b-radius">
                     <div class="card-body pt-0">
                         <div class="row">
-                            <div class="col-12 payment-1">
+                            <div class="col-12 payment-1 mt-2">
                                 <table class="table-payment-1">
                                     <tr>
                                         <td class="text-left">Tanggal</td>

@@ -13,7 +13,7 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/login.js','public/js')
     .sass('resources/sass/login.scss','public/css')
+    .js('resources/js/backend.js','public/js')
+    .sass('resources/sass/backend.scss','public/css').sourceMaps();
 
-    //backend
-mix.js('resources/js/backend.js','public/js')
-   .sass('resources/sass/backend.scss','public/css')
+mix.sass('resources/sass/mdiIcons.scss','plugins/css');
