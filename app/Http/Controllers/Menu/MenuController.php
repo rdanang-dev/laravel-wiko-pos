@@ -67,10 +67,20 @@ class MenuController extends Controller
 
     public function store(Request $request, Menu $menu)
     {
-        request()->validate([
-            'nama' => 'required|unique:menus,nama' . $menu->id,
-            'harga' => 'required',
-        ]);
+        if(!$request->id){
+            request()->validate([
+                'nama' => 'required|unique:menus,nama' . $menu->id,
+                'harga' => 'required',
+            ]);
+
+        }else{
+            request()->validate([
+                'nama' => 'required',
+                'harga' => 'required',
+            ]);
+
+        }
+
 
         $res = Menu::updateOrCreate(
             ['id' => $request->id],
