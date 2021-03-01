@@ -22,9 +22,6 @@ Route::middleware('auth')->group(function () {
         Route::patch('index', [MenuController::class, 'update']);
         Route::get('index/{menu}/edit', [MenuController::class, 'edit'])->name('menus.update');
         Route::delete('index/{menu}/delete', [MenuController::class, 'delete'])->name('menus.delete');
-
-
-        // Route::get('datatable', [MenuController::class, 'getdatamenu'])->name('menus.datatable');
     });
 
     Route::view('test', 'backend.test');
