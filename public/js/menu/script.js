@@ -104,14 +104,20 @@ $("#btnDelete").on("click", function (e) {
 
 $("#btnSubmit").on("click", function (e) {
     e.preventDefault();
+
+    var form = $(".modal-body form");
+
+    form.find('input').removeClass('is-invalid');
+    form.find('.invalid-feedback').remove();
+
     $.ajax({
-        data: $(".modal-body form").serialize(),
+        data: form.serialize(),
         url: "/menus/index",
         type: "post",
         method: "post",
         dataType: "json",
         success: function (data) {
-            $(".modal-body form").trigger("reset");
+            form.trigger("reset");
             $("#menuModal").modal("hide");
             // $("#dt").DataTable().draw();
             $("#dt").DataTable().ajax.url("/menus/index").load();
@@ -122,13 +128,17 @@ $("#btnSubmit").on("click", function (e) {
                 position: "bottomRight",
             });
         },
-        error: function (data) {
-            console.log("Error", data);
-            iziToast.error({
-                title: "Data not Saved",
-                message: "Error",
-                position: "bottomRight",
-            });
+        error: function (xhr) {
+            console.log("Error", xhr);
+            var res = xhr.responseJSON;
+            if ($.isEmptyObject(res) == false) {
+                $.each(res.errors, function (key, value) {
+                    $('#' + key)
+                        .addClass('is-invalid')
+                        .closest('.form-group')
+                        .append('<span class="invalid-feedback">' + value + '</span>');
+                });
+            }
         },
     });
 });

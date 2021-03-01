@@ -22,7 +22,6 @@ class MenuController extends Controller
                 })
                 ->addColumn('action', function ($menu) {
                     $button = "<a href='javascript:void(0)' data-toggle='tooltip'  data-id={$menu->id} data-original-title='Edit' class='btn btn-sm btn-success btnEditMenu'>Edit</a>";
-
                     $button .= "<a href='#' data-id={$menu->id} data-original-title='Delete' class='btn btn-sm btn-danger ml-1 btnDeleteMenu'>Delete</a>";
                     return $button;
                 })

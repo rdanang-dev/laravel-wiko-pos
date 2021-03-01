@@ -72,20 +72,18 @@
 
                         <div class="form-group">
                             <label for="nama">Nama</label>
-                            <input type="text" name="nama" id="nama"
-                                class="form-control @error('nama') is-invalid @enderror">
-                            @error('nama')
+                            <input type="text" name="nama" id="nama" class="form-control">
+                            {{-- @error('nama')
                             <span class="invalid-feedback">{{ $message }}</span>
-                            @enderror
+                            @enderror --}}
                         </div>
 
                         <div class="form-group">
                             <label for="harga">Harga</label>
-                            <input type="text" name="harga" id="harga"
-                                class="form-control @error('harga') is-invalid @enderror">
-                            @error('harga')
+                            <input type="text" name="harga" id="harga" class="form-control">
+                            {{-- @error('harga')
                             <span class="invalid-feedback">{{ $message }}</span>
-                            @enderror
+                            @enderror --}}
                         </div>
                 </div>
                 <div class="modal-footer">
