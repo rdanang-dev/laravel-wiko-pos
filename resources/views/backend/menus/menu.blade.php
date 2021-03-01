@@ -64,8 +64,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('menus.menu') }}" method="post">
-                        @csrf
+                    {{-- <form action="{{ route('menus.menu') }}" method="post"> --}}
+                    <form id="menuModalForm">
+                        {{-- @csrf --}}
+
+                        <input type="hidden" name="id" id="id">
+
                         <div class="form-group">
                             <label for="nama">Nama</label>
                             <input type="text" name="nama" id="nama"

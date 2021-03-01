@@ -1,7 +1,9 @@
 {
     "/js/login.js": "/js/login.js",
     "/js/backend.js": "/js/backend.js",
+    "/plugins/js/iziToast.js": "/plugins/js/iziToast.js",
     "/css/backend.css": "/css/backend.css",
     "/plugins/css/mdiIcons.css": "/plugins/css/mdiIcons.css",
+    "/plugins/css/iziToast.css": "/plugins/css/iziToast.css",
     "/css/login.css": "/css/login.css"
 }

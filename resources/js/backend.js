@@ -21,3 +21,4 @@ require('datatables.net-select-bs4');
 // bs4 no js - require direct component
 // styling only packages for bs4
 require('datatables.net-keytable');
+

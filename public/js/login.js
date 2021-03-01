@@ -377,6 +377,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extr
 
 /***/ }),
 
+/***/ "./resources/sass/iziToast.scss":
+/*!**************************************!*\
+  !*** ./resources/sass/iziToast.scss ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvc2Fzcy9pemlUb2FzdC5zY3NzPzlhMWMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUFBIiwiZmlsZSI6Ii4vcmVzb3VyY2VzL3Nhc3MvaXppVG9hc3Quc2Nzcy5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8vIGV4dHJhY3RlZCBieSBtaW5pLWNzcy1leHRyYWN0LXBsdWdpblxuZXhwb3J0IHt9OyJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/sass/iziToast.scss\n");
+
+/***/ }),
+
 /***/ "./resources/sass/mdiIcons.scss":
 /*!**************************************!*\
   !*** ./resources/sass/mdiIcons.scss ***!
@@ -384,7 +395,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extr
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvc2Fzcy9tZGlJY29ucy5zY3NzPzFiNjgiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUFBIiwiZmlsZSI6Ii4vcmVzb3VyY2VzL3Nhc3MvbWRpSWNvbnMuc2Nzcy5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8vIGV4dHJhY3RlZCBieSBtaW5pLWNzcy1leHRyYWN0LXBsdWdpblxuZXhwb3J0IHt9OyJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/sass/mdiIcons.scss\n");
+eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvc2Fzcy9tZGlJY29ucy5zY3NzP2Q5YTAiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUFBIiwiZmlsZSI6Ii4vcmVzb3VyY2VzL3Nhc3MvbWRpSWNvbnMuc2Nzcy5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8vIGV4dHJhY3RlZCBieSBtaW5pLWNzcy1leHRyYWN0LXBsdWdpblxuZXhwb3J0IHt9OyJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/sass/mdiIcons.scss\n");
 
 /***/ }),
 
@@ -508,6 +519,7 @@ eval("// shim for using process in browser\nvar process = module.exports = {};\n
 /******/ 			["./resources/js/login.js"],
 /******/ 			["./resources/sass/login.scss"],
 /******/ 			["./resources/sass/backend.scss"],
+/******/ 			["./resources/sass/iziToast.scss"],
 /******/ 			["./resources/sass/mdiIcons.scss"]
 /******/ 		];
 /******/ 		// no chunk on demand loading
