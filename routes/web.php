@@ -20,10 +20,10 @@ Route::middleware('auth')->group(function () {
         Route::get('index', [MenuController::class, 'index'])->name('menus.menu');
         Route::post('index', [MenuController::class, 'store']);
         Route::patch('index', [MenuController::class, 'update']);
-        Route::get('index/{menu}/edit', [MenuController::class, 'edit'])->name('menus.update');
-
-
-        // Route::get('datatable', [MenuController::class, 'getdatamenu'])->name('menus.datatable');
+        Route::get('index/{menu}/edit', [
+            MenuController::class,
+            'edit'
+        ])->name('menus.update');
     });
 
     Route::view('test', 'backend.test');
