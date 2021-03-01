@@ -67,7 +67,6 @@ $('#btnSubmit').on('click', function(e){
         data: $('.modal-body form').serialize(),
         url: "/menus/index",
         type: 'post',
-        method: 'post',
         dataType: 'json',
         success: function (data) {
             $('.modal-body form').trigger('reset');
