@@ -28,7 +28,7 @@ class MenuController extends Controller
 
     public function index()
     {
-        $menus = Menu::get();
+        $menus = Menu::orderBy('created_at','desc')->get();
         if (request()->ajax()) {
             return DataTables::of($menus)
                 ->addIndexColumn()
