@@ -36,8 +36,11 @@ class MenuController extends Controller
                     return $menu->created_at->diffForHumans();
                 })
                 ->addColumn('action', function ($menu) {
-                    return '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $menu->id . '" data-original-title="Edit" class="btn btn-sm btn-success btnEditMenu">Edit</a>
-                <a href="#" class="btn btn-sm btn-danger ml-1">Delete</a>';
+                    $button = "<a href='javascript:void(0)' data-toggle='tooltip'  data-id={$menu->id} data-original-title='Edit' class='btn btn-sm btn-success btnEditMenu'>Edit</a>";
+
+                    $button .= "<a href='#' data-id={$menu->id} data-original-title='Delete' class='btn btn-sm btn-danger ml-1 btnDeleteMenu'>Delete</a>";
+                    return $button;
+
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -89,6 +92,16 @@ class MenuController extends Controller
         // $data = Menu::where($here)->first();
         $data = Menu::findOrFail($id);
         return response()->json($data);
+    }
+
+
+    public function delete($id){
+        $findMenu = Menu::findOrFail($id);
+        $deleteMenu = $findMenu->delete();
+        if(!$deleteMenu){
+            return response()->json(['message' => "Delete Menu Failed"],500);
+        }
+        return response()->json($findMenu,200);
     }
 
     // public function update(Menu $menu)
