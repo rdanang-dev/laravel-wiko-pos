@@ -49,6 +49,14 @@ $(".btnAddMenu").on("click", function () {
     $("#menuModal").modal("show");
 });
 
+$("#dt").on("click", ".btnDeleteMenu", function () {
+    console.log("testing");
+    $("#deleteMenuModal").modal("show");
+    var dataId = $(this).data("id");
+    $("#menuModalDeleteLabel").html("Delete Menu");
+    $("#deleteMenuId").val(dataId);
+});
+
 // Edit Modal
 // ketika class btnEditModal yang ada di alam body di click
 $("#dt").on("click", ".btnEditMenu", function () {
@@ -65,6 +73,32 @@ $("#dt").on("click", ".btnEditMenu", function () {
         $("#id").val(menu.id);
         $("#nama").val(menu.nama);
         $("#harga").val(menu.harga);
+    });
+});
+
+$("#btnDelete").on("click", function (e) {
+    e.preventDefault();
+    const menuId = $("#deleteMenuId").val();
+    $.ajax({
+        url: `/menus/index/${menuId}/delete`,
+        method: "delete",
+        success: function (data) {
+            $("#dt").DataTable().ajax.url("/menus/index").load();
+            $("#deleteMenuModal").modal("hide");
+            iziToast.success({
+                title: "Data Deleted",
+                message: "Data Deleted Successfully",
+                position: "bottomRight",
+            });
+        },
+        error: function (err) {
+            console.log("Error", err);
+            iziToast.error({
+                title: "Data not Saved",
+                message: "Error",
+                position: "bottomRight",
+            });
+        },
     });
 });
 
