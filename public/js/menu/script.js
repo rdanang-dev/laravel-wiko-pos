@@ -29,7 +29,12 @@ $("#dt").DataTable({
         { data: "nama", name: "nama" },
         { data: "harga", name: "harga" },
         { data: "created_at", name: "created_at" },
-        { data: "action", name: "action" },
+        {
+            data: "action",
+            name: "action",
+            orderable: false,
+            searchable: false,
+        }
     ],
     order: [0, "asc"],
 });

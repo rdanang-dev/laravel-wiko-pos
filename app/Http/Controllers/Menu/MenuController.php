@@ -28,7 +28,7 @@ class MenuController extends Controller
 
     public function index()
     {
-        $menus = Menu::orderBy('created_at','desc')->get();
+        $menus = Menu::orderBy('created_at', 'desc')->get();
         if (request()->ajax()) {
             return DataTables::of($menus)
                 ->addIndexColumn()
@@ -66,7 +66,7 @@ class MenuController extends Controller
     {
         request()->validate([
             'nama' => 'required|unique:menus,nama' . $menu->id,
-            'harga' => 'required' . $menu->id,
+            'harga' => 'required',
         ]);
 
         $res = Menu::updateOrCreate(
