@@ -12,49 +12,65 @@ class MenuController extends Controller
 
     public function index()
     {
-        $findAllMenu = Menu::get();
+        $findAllMenu = Menu::orderBy('created_at', 'desc')->get();
 
         return response()->json($findAllMenu);
     }
 
-    // public function store(Request $request, Menu $menu)
-    // {
-    //     if (!$request->id) {
-    //         request()->validate([
-    //             'nama' => 'required|unique:menus,nama' . $menu->id,
-    //             'harga' => 'required',
-    //         ]);
-    //     } else {
-    //         request()->validate([
-    //             'nama' => 'required',
-    //             'harga' => 'required',
-    //         ]);
-    //     }
+    public function store()
+    {
 
-    //     $res = Menu::updateOrCreate(
-    //         ['id' => $request->id],
-    //         [
-    //             'nama' => $request->nama,
-    //             'slug' => Str::slug($request->nama),
-    //             'harga' => $request->harga
-    //         ]
-    //     );
-    //     return response()->json($res);
-    // }
+        $validator = validator(request()->all(), [
+            'nama' => 'required|unique:menus,nama',
+            'harga' => 'required',
+        ]);
 
-    // public function edit($id)
-    // {
-    //     $data = Menu::findOrFail($id);
-    //     return response()->json($data);
-    // }
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
 
-    // public function delete($id)
-    // {
-    //     $findMenu = Menu::findOrFail($id);
-    //     $deleteMenu = $findMenu->delete();
-    //     if (!$deleteMenu) {
-    //         return response()->json(['message' => "Delete Menu Failed"], 500);
-    //     }
-    //     return response()->json($findMenu, 200);
-    // }
+        $res = Menu::Create(
+            [
+                'nama' => request()->nama,
+                'slug' => Str::slug(request()->nama),
+                'harga' => request()->harga
+            ]
+        );
+        return response()->json($res);
+    }
+
+    public function update($id)
+    {
+        request()->validate([
+            'nama' => "required|unique:menus,nama,$id",
+            'harga' => 'required',
+        ]);
+
+        $findMenu = Menu::findOrFail($id);
+
+        $res = $findMenu->update(
+            [
+                'nama' => request()->nama,
+                'slug' => Str::slug(request()->nama),
+                'harga' => request()->harga
+            ]
+        );
+        return response()->json($findMenu);
+    }
+
+    public function show($id)
+    {
+        $data = Menu::findOrFail($id);
+        return response()->json($data);
+    }
+
+    public function destroy($id)
+    {
+        $findMenu = Menu::findOrFail($id);
+        $deleteMenu = $findMenu->delete();
+        if (!$deleteMenu) {
+            return response()->json(['message' => "Delete Menu Failed"], 500);
+        }
+        return response()->json($findMenu, 200);
+    }
 }
