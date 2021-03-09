@@ -1,4 +1,4 @@
-const mix = require('laravel-mix');
+const mix = require("laravel-mix");
 
 /*
  |--------------------------------------------------------------------------
@@ -11,14 +11,6 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/login.js','public/js')
-    .sass('resources/sass/login.scss','public/css')
-    .js('resources/js/backend.js','public/js')
-    .sass('resources/sass/backend.scss','public/css').sourceMaps();
-
-mix.js('resources/js/iziToast.js','plugins/js')
-    .js('resources/js/iziToast.js','plugins/js')
-    .sass('resources/sass/iziToast.scss','plugins/css')
-    .sass('resources/sass/iziToast.scss','plugins/css')
-    .sass('resources/sass/mdiIcons.scss','plugins/css');
-
+mix.js("resources/js/backend.js", "public/js")
+    .sass("resources/sass/backend.scss", "public/css")
+    .sourceMaps();

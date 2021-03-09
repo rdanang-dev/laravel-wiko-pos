@@ -176,9 +176,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        // laravel fortify
-        App\Providers\FortifyServiceProvider::class,
-
         // roles and permission from spatie
         Spatie\Permission\PermissionServiceProvider::class,
 
