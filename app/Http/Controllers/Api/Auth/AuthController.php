@@ -26,11 +26,11 @@ class AuthController extends Controller
                 'message' => 'User not found',
             ], 401);
         } else if ($user) {
-            $token = $user->createToken('token-name')->plainTextToken;
+            $token = $user->createToken('token')->plainTextToken;
             if (Hash::check(request()->password, $user->password)) {
                 return response()->json([
                     'message' => 'Success',
-                    'user' => $user,
+                    // 'user' => $user,
                     'token' => $token,
                 ], 200);
             } else {
@@ -39,5 +39,15 @@ class AuthController extends Controller
                 ], 200);
             }
         }
+    }
+
+    public function logout()
+    {
+        $user = request()->user();
+        $user->currentAccessToken()->delete();
+
+        return response()->json([
+            'message' => 'Logged out Successfully'
+        ], 200);
     }
 }
