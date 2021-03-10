@@ -55,8 +55,9 @@ class OrderController extends Controller
             $totalPrice = 0;
 
             foreach($orderDetails as $data){
+                // Find Menu
                 $findMenu = $getAllMenu->where('id',$data['menu_id'])->first();
-                // dd($findMenu);
+                // Create Order Detail
                 $createOrder->details()->create([
                     'menu_id' => $data['menu_id'],
                     'menu_data' => $findMenu,
