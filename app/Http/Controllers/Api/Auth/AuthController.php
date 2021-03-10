@@ -36,7 +36,7 @@ class AuthController extends Controller
             } else {
                 return response()->json([
                     'message' => 'Password not valid',
-                ], 200);
+                ], 401);
             }
         }
     }

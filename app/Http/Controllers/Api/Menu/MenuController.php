@@ -29,7 +29,7 @@ class MenuController extends Controller
             return response()->json(['errors' => $validator->errors()], 400);
         }
 
-        $res = Menu::Create(
+        $res = Menu::create(
             [
                 'nama' => request()->nama,
                 'slug' => Str::slug(request()->nama),
