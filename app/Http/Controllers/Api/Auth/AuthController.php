@@ -16,7 +16,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 400);
+            return response()->json(['message' => 'Login Gagal', 'errors' => $validator->errors()], 400);
         }
 
         $user = User::where('email', request()->email)->first();
@@ -30,7 +30,7 @@ class AuthController extends Controller
             if (Hash::check(request()->password, $user->password)) {
                 return response()->json([
                     'message' => 'Success',
-                    // 'user' => $user,
+                    'user' => $user,
                     'token' => $token,
                 ], 200);
             } else {
@@ -39,6 +39,11 @@ class AuthController extends Controller
                 ], 200);
             }
         }
+    }
+
+    public function profile()
+    {
+        return response()->json(['users' => auth()->user()]);
     }
 
     public function logout()
