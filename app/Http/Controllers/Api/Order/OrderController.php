@@ -29,15 +29,12 @@ class OrderController extends Controller
     {
         DB::beginTransaction();
         try {
-            // dd($this->generateOrderCode(1));
+
             $orderNumber = 1;
             $dateNow = Carbon::now()->toDateString();
-            // dd($dateNow);
-            $getOrderNumber = Order::whereDate('created_at','2021-03-11 00:00:00')->max('order_number');
-            // $getOrderNumber = Order::whereDate('created_at',$dateNow)->max('order_number');
-            // dd($getOrderNumber);
 
-            // dd($getOrderNumber);
+            $getOrderNumber = Order::whereDate('created_at',$dateNow)->max('order_number');
+
             if($getOrderNumber != null){
                 $orderNumber = $getOrderNumber + 1;
             }
@@ -78,15 +75,6 @@ class OrderController extends Controller
             DB::rollBack();
 
         }
-
-
-
-
-        // foreach($)
-
-        // dd($createOrder);
-        // $createOrder->not
-        // $createOrder->order_code = ;
 
     }
 }
