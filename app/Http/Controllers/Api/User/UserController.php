@@ -40,18 +40,22 @@ class UserController extends Controller
         request()->validate([
             'name' => 'required',
             'email' => "required|unique:users,email,$id",
-            'password' => 'required',
+            'password' => 'nullable',
         ]);
 
         $user = User::findOrFail($id);
 
-        $res = $user->update(
-            [
-                'name' => request()->name,
-                'email' => request()->email,
-                'password' => bcrypt(request()->password)
-            ]
-        );
+        $payloadUser = [
+            'name' => request()->name,
+            'email' => request()->email,
+
+        ];
+
+        if (request()->password) {
+            $payloadUser['password'] = bcrypt(request()->password);
+        }
+
+        $res = $user->update($payloadUser);
         return response()->json($user);
     }
 
