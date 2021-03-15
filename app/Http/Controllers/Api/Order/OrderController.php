@@ -74,8 +74,14 @@ class OrderController extends Controller
         } catch (\Throwable$th) {
             throw $th;
             DB::rollBack();
-
         }
+    }
 
+    public function sumqty($id)
+    {
+        $data = Menu::findOrFail($id);
+        $totalharga = 0;
+        $totalharga = $data->harga * request()->qty;
+        return response()->json($totalharga);
     }
 }

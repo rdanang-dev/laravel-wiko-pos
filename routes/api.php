@@ -11,7 +11,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('profile', [AuthController::class, 'profile'])->name('auth.profile');
     Route::resource('menu', MenuController::class);
     Route::resource('user', UserController::class);
-    Route::resource('order',OrderController::class);
+    Route::resource('order', OrderController::class);
+    Route::post('order/sumqty', [OrderController::class, 'sumqty'])->name('order.sumqty');
 });
 
 Route::post('auth', [AuthController::class, 'login'])->name('auth.login');
