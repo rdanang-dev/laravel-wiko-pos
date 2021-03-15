@@ -66,7 +66,6 @@ class MenuController extends Controller
         ];
 
         if (request('image')) {
-            // request()->file('image')->store()
             $payloadMenu['image'] = Storage::disk('s3')->put('menu', request()->file('image'), 'public');
         }
         $findMenu->update(

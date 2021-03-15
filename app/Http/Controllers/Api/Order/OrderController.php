@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Api\Order;
 use App\Http\Controllers\Controller;
 use App\Models\Menu;
 use App\Models\Order;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
-use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 class OrderController extends Controller
 {
 
@@ -19,9 +19,10 @@ class OrderController extends Controller
         return response()->json($getAllOrder);
     }
 
-    public function generateOrderCode(int $number){
-        $padNumber = str_pad($number,4,'0',STR_PAD_LEFT);
-        $orderCode = "ORD-".Carbon::now()->format('Ymd').'-'.$padNumber;
+    public function generateOrderCode(int $number)
+    {
+        $padNumber = str_pad($number, 4, '0', STR_PAD_LEFT);
+        $orderCode = "ORD-" . Carbon::now()->format('Ymd') . '-' . $padNumber;
         return $orderCode;
     }
 
@@ -33,9 +34,9 @@ class OrderController extends Controller
             $orderNumber = 1;
             $dateNow = Carbon::now()->toDateString();
 
-            $getOrderNumber = Order::whereDate('created_at',$dateNow)->max('order_number');
+            $getOrderNumber = Order::whereDate('created_at', $dateNow)->max('order_number');
 
-            if($getOrderNumber != null){
+            if ($getOrderNumber != null) {
                 $orderNumber = $getOrderNumber + 1;
             }
 
@@ -49,29 +50,28 @@ class OrderController extends Controller
             $createOrder->customer_id = $request->customer_id ?? null;
             $createOrder->save();
 
-
             $orderDetails = $request->details;
 
             $totalPrice = 0;
 
-            foreach($orderDetails as $data){
+            foreach ($orderDetails as $data) {
                 // Find Menu
-                $findMenu = $getAllMenu->where('id',$data['menu_id'])->first();
+                $findMenu = $getAllMenu->where('id', $data['menu_id'])->first();
                 // Create Order Detail
                 $createOrder->details()->create([
                     'menu_id' => $data['menu_id'],
                     'menu_data' => $findMenu,
                     'price' => $findMenu->harga,
                     'discount' => $data['discount'],
-                    'qty' => $data['qty']
+                    'qty' => $data['qty'],
                 ]);
 
                 $totalPrice += $findMenu['price'] - $data['discount'];
             }
 
             DB::commit();
-            return response()->json(['message' => 'success'],201);
-        } catch (\Throwable $th) {
+            return response()->json(['message' => 'success'], 201);
+        } catch (\Throwable$th) {
             throw $th;
             DB::rollBack();
 
