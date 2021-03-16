@@ -20,13 +20,14 @@ class CreateOrderTable extends Migration
             $table->integer('order_number')->default(0);
             $table->text('notes')->nullable();
             $table->bigInteger('total_price')->default(0);
-            $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('customer_id')->nullable();
+            $table->unsignedBigInteger('status')->default(1);
             $table->timestamps();
 
             $table->foreign('employee_id')->on('users')->references('id');
         });
 
-        Schema::create('order_details',function(Blueprint $table){
+        Schema::create('order_details', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('menu_id');
@@ -34,7 +35,6 @@ class CreateOrderTable extends Migration
             $table->bigInteger('discount')->default(0);
             $table->bigInteger('qty')->default(0);
             $table->timestamps();
-
 
             $table->foreign('order_id')->on('orders')->references('id')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('menu_id')->on('menus')->references('id')->onUpdate('cascade')->onDelete('cascade');
@@ -48,18 +48,16 @@ class CreateOrderTable extends Migration
      */
     public function down()
     {
-        Schema::table('orders',function(Blueprint $table){
+        Schema::table('orders', function (Blueprint $table) {
             $table->dropForeign(['employee_id']);
         });
 
-        Schema::table('order_details',function(Blueprint $table){
+        Schema::table('order_details', function (Blueprint $table) {
             $table->dropForeign(['order_id']);
             $table->dropForeign(['menu_id']);
         });
 
         Schema::dropIfExists('orders');
-
-
 
         Schema::dropIfExists('order_details');
     }

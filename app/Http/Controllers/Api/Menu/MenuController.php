@@ -23,8 +23,8 @@ class MenuController extends Controller
     {
 
         $validator = validator(request()->all(), [
-            'nama' => 'required|unique:menus,nama',
-            'harga' => 'required',
+            'name' => 'required|unique:menus,name',
+            'price' => 'required',
             'image' => 'nullable|image|max:2000',
         ]);
 
@@ -33,9 +33,9 @@ class MenuController extends Controller
         }
 
         $payloadMenu = [
-            'nama' => request()->nama,
-            'slug' => Str::slug(request()->nama),
-            'harga' => request()->harga,
+            'name' => request()->name,
+            'slug' => Str::slug(request()->name),
+            'price' => request()->price,
         ];
 
         if (request('image')) {
@@ -52,17 +52,17 @@ class MenuController extends Controller
     public function update($id)
     {
         request()->validate([
-            'nama' => "required|unique:menus,nama,$id",
-            'harga' => 'required',
+            'name' => "required|unique:menus,name,$id",
+            'price' => 'required',
             'image' => 'nullable|image|max:2000',
         ]);
 
         $findMenu = Menu::findOrFail($id);
 
         $payloadMenu = [
-            'nama' => request()->nama,
-            'slug' => Str::slug(request()->nama),
-            'harga' => request()->harga,
+            'name' => request()->name,
+            'slug' => Str::slug(request()->name),
+            'price' => request()->price,
         ];
 
         if (request('image')) {

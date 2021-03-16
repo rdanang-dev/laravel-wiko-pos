@@ -3,9 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Storage;
 
-class MenuResource extends JsonResource
+class OrderDetailResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,11 +16,13 @@ class MenuResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'slug' => $this->slug,
+            'order_id' => $this->order_id,
+            'name' => $this->menu->name ?? '',
+            'menu_id' => $this->menu_id,
             'price' => $this->price,
-            'image' => $this->image,
-            'image_url' => $this->image ? Storage::disk('s3')->url($this->image) : 'https://via.placeholder.com/600',
+            'discount' => $this->discount,
+            'qty' => $this->qty,
+            'total_price' => $this->price * $this->qty,
         ];
     }
 }
