@@ -65,9 +65,13 @@ class MenuController extends Controller
             'price' => request()->price,
         ];
 
-        if (request('image')) {
+        if (request()->file('image')) {
+            if (Storage::disk('s3')->exists($findMenu->image)) {
+                Storage::disk('s3')->delete($findMenu->image);
+            }
             $payloadMenu['image'] = Storage::disk('s3')->put('menu', request()->file('image'), 'public');
         }
+
         $findMenu->update(
             $payloadMenu
         );

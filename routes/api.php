@@ -12,7 +12,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('menu', MenuController::class);
     Route::resource('user', UserController::class);
     Route::resource('order', OrderController::class);
-    Route::post('order/sumqty', [OrderController::class, 'sumqty'])->name('order.sumqty');
+    Route::post('menu/{id}', [MenuController::class, 'update'])->name('menu.updatepost');
+    Route::post('user/{id}', [UserController::class, 'update'])->name('user.updatepost');
 });
 
 Route::post('auth', [AuthController::class, 'login'])->name('auth.login');

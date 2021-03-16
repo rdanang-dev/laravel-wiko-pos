@@ -58,8 +58,9 @@ class OrderController extends Controller
                 return $data['menu_id'];
             });
 
+
             // Remove
-            OrderDetail::whereNotIn('menu_id', $getDetailsMenuIds)->delete();
+            OrderDetail::where('order_id', $id)->whereNotIn('menu_id', $getDetailsMenuIds)->delete();
 
             foreach ($request->details as $data) {
 
@@ -82,11 +83,10 @@ class OrderController extends Controller
 
             DB::commit();
             return response()->json(['message' => '']);
-        } catch (\Throwable$th) {
+        } catch (\Throwable $th) {
             throw $th;
             DB::rollBack();
         }
-
     }
 
     public function store(Request $request)
@@ -134,12 +134,11 @@ class OrderController extends Controller
 
                     $totalPrice += $findMenu['price'] - $data['discount'];
                 }
-
             }
 
             DB::commit();
             return response()->json(['message' => 'success'], 201);
-        } catch (\Throwable$th) {
+        } catch (\Throwable $th) {
             throw $th;
             DB::rollBack();
         }

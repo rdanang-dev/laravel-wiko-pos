@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -43,7 +44,7 @@ class AuthController extends Controller
 
     public function profile()
     {
-        return response()->json(['users' => auth()->user()]);
+        return new UserResource(auth()->user());
     }
 
     public function logout()
