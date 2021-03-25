@@ -20,7 +20,7 @@ class AuthController extends Controller
             return response()->json(['message' => 'Login Gagal', 'errors' => $validator->errors()], 400);
         }
 
-        $user = User::where('email', request()->email)->first();
+        $user = User::with('roles')->where('email', request()->email)->first();
 
         if (!$user) {
             return response()->json([
@@ -44,7 +44,8 @@ class AuthController extends Controller
 
     public function profile()
     {
-        return new UserResource(auth()->user());
+        $findUser = User::with('roles')->find(auth()->id());
+        return new UserResource($findUser);
     }
 
     public function logout()

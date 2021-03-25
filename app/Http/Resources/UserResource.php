@@ -21,6 +21,8 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'image' => $this->image,
             'image_url' => $this->image ? Storage::disk('s3')->url($this->image) : 'https://via.placeholder.com/600',
+            'roles' => $this->roles[0]->name,
+            'role_id' => $this->roles[0]->id,
         ];
     }
 }

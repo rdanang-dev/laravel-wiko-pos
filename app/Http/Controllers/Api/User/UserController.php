@@ -22,6 +22,7 @@ class UserController extends Controller
             'email' => 'required|unique:users,email',
             'password' => 'required',
             'image' => 'nullable|image|max:2000',
+            'role_id' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -43,6 +44,10 @@ class UserController extends Controller
             $payloadUser
         );
 
+        if (request()->role_id) {
+            $res->assignRole(request()->role_id);
+        }
+
         return response()->json($res);
     }
 
@@ -53,6 +58,7 @@ class UserController extends Controller
             'email' => "required|unique:users,email,$id",
             'password' => 'nullable',
             'image' => 'nullable|image|max:2000',
+            'role_id' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -68,6 +74,10 @@ class UserController extends Controller
 
         if (request()->password) {
             $payloadUser['password'] = bcrypt(request()->password);
+        }
+
+        if (request()->role_id) {
+            $user->syncRoles(request()->role_id);
         }
 
         if (request()->file('image')) {
