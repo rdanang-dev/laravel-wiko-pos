@@ -24,8 +24,11 @@ class AuthController extends Controller
 
         if (!$user) {
             return response()->json([
-                'message' => 'User not found',
-            ], 401);
+                'message' => "Unpam Kintil",
+                'errors' => [
+                    'email' => ['User Not Found']
+                ]
+            ], 400);
         } else if ($user) {
             $token = $user->createToken('token')->plainTextToken;
             if (Hash::check(request()->password, $user->password)) {
@@ -36,8 +39,14 @@ class AuthController extends Controller
                 ], 200);
             } else {
                 return response()->json([
-                    'message' => 'Password not valid',
-                ], 401);
+                    'message' => "Password Not Valid",
+                    'errors' => [
+                        'password' => ['Password Not Valid']
+                    ]
+                ], 400);
+                // return response()->json([
+                //     'message' => 'Password not valid',
+                // ], 401);
             }
         }
     }

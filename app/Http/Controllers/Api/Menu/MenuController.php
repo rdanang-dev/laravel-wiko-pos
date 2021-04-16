@@ -21,7 +21,6 @@ class MenuController extends Controller
 
     public function store()
     {
-
         $validator = validator(request()->all(), [
             'name' => 'required|unique:menus,name',
             'price' => 'required',
