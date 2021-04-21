@@ -22,7 +22,18 @@ class OrderController extends Controller
 
     public function generateOrderCode(int $number)
     {
-        $padNumber = str_pad($number, 4, '0', STR_PAD_LEFT);
+        $padNumber = str_pad(
+            $number,     // public function sumqty($id)
+            // {
+            //     $data = Menu::findOrFail($id);
+            //     $totalharga = 0;
+            //     $totalharga = $data->harga * request()->qty;
+            //     return response()->json($totalharga);
+            // }
+            4,
+            '0',
+            STR_PAD_LEFT
+        );
         $orderCode = "ORD-" . Carbon::now()->format('Ymd') . '-' . $padNumber;
         return $orderCode;
     }
@@ -33,11 +44,6 @@ class OrderController extends Controller
 
         return new OrderResource($getOrder);
     }
-
-    // public function update($id){
-    //     $findOrder = Order::find($id);
-    //     $findOrder->details()->update
-    // }
 
     public function update(Request $request, $id)
     {
@@ -50,17 +56,22 @@ class OrderController extends Controller
                 return response()->json(['message' => 'Order Not Found'], 404);
             }
             // Update Customer
-            $getOrder->customer_id = $request->customer_id;
-
+            // $getOrder->customer_id = $request->customer_id;
             $totalPrice = 0;
-
+            if ($request->has('checkout')) {
+                $getOrder->status = 2;
+            }
             $getDetailsMenuIds = collect($request->details)->map(function ($data) {
                 return $data['menu_id'];
             });
 
-
             // Remove
             OrderDetail::where('order_id', $id)->whereNotIn('menu_id', $getDetailsMenuIds)->delete();
+
+            $discountValue = request()->discount_value ?? 0;
+
+            $getOrder->discount_percentage = request()->discount_percentage ?? 0;
+            $getOrder->discount_value = $discountValue;
 
             foreach ($request->details as $data) {
 
@@ -68,19 +79,14 @@ class OrderController extends Controller
                     'menu_id' => $data['menu_id'],
                     'price' => $data['price'],
                     'qty' => $data['qty'],
-
                 ];
                 $subTotal = $data['price'] * $data['qty'];
                 $whereQuery = ['menu_id' => $data['menu_id'], "order_id" => $id];
                 OrderDetail::updateOrCreate($whereQuery, $orderDetailData);
-                // $getOrderDetail->menu_id = $data['menu_id'];
-                // $getOrderDetail->price = $data['price'];
-                // $getOrderDetail->qty = $data['qty'];
-                // $getOrderDetail->save();
                 $totalPrice += $subTotal;
             }
-            $getOrder->total_price = $totalPrice;
-
+            $getOrder->total_price = $totalPrice - $discountValue;
+            $getOrder->save();
             DB::commit();
             return response()->json(['message' => '']);
         } catch (\Throwable $th) {
@@ -93,7 +99,6 @@ class OrderController extends Controller
     {
         DB::beginTransaction();
         try {
-
             $orderNumber = 1;
             $dateNow = Carbon::now()->toDateString();
 
@@ -119,7 +124,6 @@ class OrderController extends Controller
             $totalPrice = 0;
 
             if ($request->details) {
-
                 foreach ($orderDetails as $data) {
                     // Find Menu
                     $findMenu = $getAllMenu->where('id', $data['menu_id'])->first();
@@ -131,24 +135,18 @@ class OrderController extends Controller
                         'discount' => $data['discount'],
                         'qty' => $data['qty'],
                     ]);
-
                     $totalPrice += $findMenu['price'] - $data['discount'];
                 }
             }
-
             DB::commit();
             return response()->json(['message' => 'success'], 201);
         } catch (\Throwable $th) {
-            throw $th;
             DB::rollBack();
+            throw $th;
         }
     }
 
-    public function sumqty($id)
+    public function checkout($id)
     {
-        $data = Menu::findOrFail($id);
-        $totalharga = 0;
-        $totalharga = $data->harga * request()->qty;
-        return response()->json($totalharga);
     }
 }
