@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api\Menu;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\MenuResource;
 use App\Models\Menu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class MenuController extends Controller
@@ -14,27 +16,34 @@ class MenuController extends Controller
     {
         $findAllMenu = Menu::orderBy('created_at', 'desc')->get();
 
-        return response()->json($findAllMenu);
+        return MenuResource::collection($findAllMenu);
     }
 
     public function store()
     {
-
         $validator = validator(request()->all(), [
-            'nama' => 'required|unique:menus,nama',
-            'harga' => 'required',
+            'name' => 'required|unique:menus,name',
+            'price' => 'required',
+            'image' => 'nullable|image|max:2000',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
 
-        $res = Menu::Create(
-            [
-                'nama' => request()->nama,
-                'slug' => Str::slug(request()->nama),
-                'harga' => request()->harga
-            ]
+        $payloadMenu = [
+            'name' => request()->name,
+            'slug' => Str::slug(request()->name),
+            'price' => request()->price,
+        ];
+
+        if (request('image')) {
+            // request()->file('image')->store()
+            $payloadMenu['image'] = Storage::disk('s3')->put('menu', request()->file('image'), 'public');
+        }
+
+        $res = Menu::create(
+            $payloadMenu
         );
         return response()->json($res);
     }
@@ -42,18 +51,28 @@ class MenuController extends Controller
     public function update($id)
     {
         request()->validate([
-            'nama' => "required|unique:menus,nama,$id",
-            'harga' => 'required',
+            'name' => "required|unique:menus,name,$id",
+            'price' => 'required',
+            'image' => 'nullable|image|max:2000',
         ]);
 
         $findMenu = Menu::findOrFail($id);
 
-        $res = $findMenu->update(
-            [
-                'nama' => request()->nama,
-                'slug' => Str::slug(request()->nama),
-                'harga' => request()->harga
-            ]
+        $payloadMenu = [
+            'name' => request()->name,
+            'slug' => Str::slug(request()->name),
+            'price' => request()->price,
+        ];
+
+        if (request()->file('image')) {
+            if (Storage::disk('s3')->exists($findMenu->image)) {
+                Storage::disk('s3')->delete($findMenu->image);
+            }
+            $payloadMenu['image'] = Storage::disk('s3')->put('menu', request()->file('image'), 'public');
+        }
+
+        $findMenu->update(
+            $payloadMenu
         );
         return response()->json($findMenu);
     }
@@ -61,12 +80,15 @@ class MenuController extends Controller
     public function show($id)
     {
         $data = Menu::findOrFail($id);
-        return response()->json($data);
+        return new MenuResource($data);
     }
 
     public function destroy($id)
     {
         $findMenu = Menu::findOrFail($id);
+        if (Storage::disk('s3')->exists($findMenu->image)) {
+            Storage::disk('s3')->delete($findMenu->image);
+        }
         $deleteMenu = $findMenu->delete();
         if (!$deleteMenu) {
             return response()->json(['message' => "Delete Menu Failed"], 500);

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMenusTable extends Migration
+class AddImageToUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateMenusTable extends Migration
      */
     public function up()
     {
-        Schema::create('menus', function (Blueprint $table) {
-            $table->id();
-            $table->string('name', 255);
-            $table->string('slug');
-            $table->integer('price');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('image')->nullable()->after('email');
         });
     }
 
@@ -29,6 +25,8 @@ class CreateMenusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menus');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('image');
+        });
     }
 }
