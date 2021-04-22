@@ -14,9 +14,16 @@ use Illuminate\Support\Facades\DB;
 class OrderController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $getAllOrder = Order::orderBy('created_at', 'desc')->get();
+
+        $getAllOrder = Order::orderBy('created_at', 'desc');
+        $status = 1;
+        if ($request->status) {
+            $status = $request->status;
+            $getAllOrder = $getAllOrder->where('status', $status);
+        }
+        $getAllOrder = $getAllOrder->get();
         return OrderResource::collection($getAllOrder);
     }
 
@@ -41,7 +48,6 @@ class OrderController extends Controller
     public function show($id)
     {
         $getOrder = Order::with('details')->find($id);
-
         return new OrderResource($getOrder);
     }
 
@@ -115,7 +121,7 @@ class OrderController extends Controller
             $createOrder->employee_id = auth()->id();
             $createOrder->order_code = $this->generateOrderCode($orderNumber);
             $createOrder->order_number = $orderNumber;
-            $createOrder->customer_id = $request->customer_id ?? null;
+            // $createOrder->customer_id = $request->customer_id ?? null;
             $createOrder->status = 1; // On Process
             $createOrder->save();
 
