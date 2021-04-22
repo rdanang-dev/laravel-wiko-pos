@@ -12,9 +12,19 @@ use Illuminate\Support\Str;
 class MenuController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $findAllMenu = Menu::orderBy('created_at', 'desc')->get();
+        $perPage = 5;
+        $findAllMenu = Menu::orderBy('created_at', 'desc');
+        if ($request->per_page) {
+            $perPage = $request->per_page;
+        }
+
+        if ($request->filter) {
+            $findAllMenu = $findAllMenu->where('name', 'like', "%$request->filter%");
+        }
+        // $findAllMenu = Menu::orderBy('created_at', 'desc')->get();
+        $findAllMenu = $findAllMenu->paginate($perPage);
 
         return MenuResource::collection($findAllMenu);
     }
