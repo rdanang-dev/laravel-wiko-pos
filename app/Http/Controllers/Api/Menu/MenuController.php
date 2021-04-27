@@ -14,18 +14,47 @@ class MenuController extends Controller
 
     public function index(Request $request)
     {
-        $perPage = 5;
-        $findAllMenu = Menu::orderBy('created_at', 'desc');
-        if ($request->per_page) {
-            $perPage = $request->per_page;
-        }
+        // $perPage = 5;
+        // $findAllMenu = Menu::orderBy('created_at', 'desc');
+        // if ($request->per_page) {
+        //     $perPage = $request->per_page;
+        // }
 
+        // if ($request->filter) {
+        //     $findAllMenu = $findAllMenu->where('name', 'like', "%$request->filter%");
+        // }
+
+        // $findAllMenu = $findAllMenu->paginate($perPage);
+        // return MenuResource::collection($findAllMenu);
+
+        // my reff
+        // $perPage = 5;
+        // $findAllMenu = Menu::orderBy('created_at', 'desc')->get();
+        // if ($request->per_page) {
+        //     $perPage = $request->per_page;
+        //     $findAllMenuPaginate = Menu::orderBy('created_at', 'desc')->paginate($perPage);
+        //     return MenuResource::collection($findAllMenuPaginate);
+        // }
+
+        // if ($request->filter) {
+        //     $findAllMenu = $findAllMenu->where('name', 'like', "%$request->filter%");
+        //     $findAllMenuPaginate = Menu::orderBy('created_at', 'desc')->paginate($perPage);
+        //     return MenuResource::collection($findAllMenuPaginate);
+        // }
+
+        $findAllMenu = Menu::orderBy('created_at', 'desc');
         if ($request->filter) {
             $findAllMenu = $findAllMenu->where('name', 'like', "%$request->filter%");
         }
-        // $findAllMenu = Menu::orderBy('created_at', 'desc')->get();
-        $findAllMenu = $findAllMenu->paginate($perPage);
 
+        if ($request->has('per_page')) {
+            $perPage = 5;
+            if ($request->per_page) {
+                $perPage = $request->per_page;
+                $findAllMenu = $findAllMenu->paginate($perPage);
+            }
+        }
+        $findAllMenu->all();
         return MenuResource::collection($findAllMenu);
     }
 
@@ -34,11 +63,11 @@ class MenuController extends Controller
         $validator = validator(request()->all(), [
             'name' => 'required|unique:menus,name',
             'price' => 'required',
-            'image' => 'nullable|image|max:2000',
+            'image' => 'nullable|file|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 400);
+            return response()->json(['message' => 'Failed', 'errors' => $validator->errors()], 400);
         }
 
         $payloadMenu = [
@@ -48,13 +77,13 @@ class MenuController extends Controller
         ];
 
         if (request('image')) {
-            // request()->file('image')->store()
             $payloadMenu['image'] = Storage::disk('s3')->put('menu', request()->file('image'), 'public');
         }
 
         $res = Menu::create(
             $payloadMenu
         );
+
         return response()->json($res);
     }
 
@@ -63,7 +92,7 @@ class MenuController extends Controller
         request()->validate([
             'name' => "required|unique:menus,name,$id",
             'price' => 'required',
-            'image' => 'nullable|image|max:2000',
+            'image' => 'nullable|file|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $findMenu = Menu::findOrFail($id);

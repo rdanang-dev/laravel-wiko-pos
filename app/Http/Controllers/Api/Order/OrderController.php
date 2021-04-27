@@ -16,7 +16,6 @@ class OrderController extends Controller
 
     public function index(Request $request)
     {
-
         $getAllOrder = Order::orderBy('created_at', 'desc');
         $status = 1;
         if ($request->status) {
