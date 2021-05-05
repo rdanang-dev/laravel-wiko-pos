@@ -27,21 +27,6 @@ class MenuController extends Controller
         // $findAllMenu = $findAllMenu->paginate($perPage);
         // return MenuResource::collection($findAllMenu);
 
-        // my reff
-        // $perPage = 5;
-        // $findAllMenu = Menu::orderBy('created_at', 'desc')->get();
-        // if ($request->per_page) {
-        //     $perPage = $request->per_page;
-        //     $findAllMenuPaginate = Menu::orderBy('created_at', 'desc')->paginate($perPage);
-        //     return MenuResource::collection($findAllMenuPaginate);
-        // }
-
-        // if ($request->filter) {
-        //     $findAllMenu = $findAllMenu->where('name', 'like', "%$request->filter%");
-        //     $findAllMenuPaginate = Menu::orderBy('created_at', 'desc')->paginate($perPage);
-        //     return MenuResource::collection($findAllMenuPaginate);
-        // }
-
         $findAllMenu = Menu::orderBy('created_at', 'desc');
         if ($request->filter) {
             $findAllMenu = $findAllMenu->where('name', 'like', "%$request->filter%");
@@ -53,8 +38,9 @@ class MenuController extends Controller
                 $perPage = $request->per_page;
                 $findAllMenu = $findAllMenu->paginate($perPage);
             }
+        } else {
+            $findAllMenu = $findAllMenu->get();
         }
-        $findAllMenu->all();
         return MenuResource::collection($findAllMenu);
     }
 

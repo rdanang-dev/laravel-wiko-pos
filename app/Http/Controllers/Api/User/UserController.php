@@ -21,7 +21,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users,email',
             'password' => 'required',
-            'image' => 'nullable|image|max:2000',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'role_id' => 'required'
         ]);
 
@@ -57,7 +57,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => "required|unique:users,email,$id",
             'password' => 'nullable',
-            'image' => 'nullable|image|max:2000',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'role_id' => 'required'
         ]);
 
@@ -80,7 +80,13 @@ class UserController extends Controller
             $user->syncRoles(request()->role_id);
         }
 
-        if (request()->file('image')) {
+        // if (request()->file('image')) {
+        //     if (Storage::disk('s3')->exists($user->image)) {
+        //         Storage::disk('s3')->delete($user->image);
+        //     }
+        //     $payloadUser['image'] = Storage::disk('s3')->put('user', request()->file('image'), 'public');
+        // }
+        if (request('image')) {
             if (Storage::disk('s3')->exists($user->image)) {
                 Storage::disk('s3')->delete($user->image);
             }
