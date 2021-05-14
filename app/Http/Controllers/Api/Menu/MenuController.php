@@ -14,19 +14,6 @@ class MenuController extends Controller
 
     public function index(Request $request)
     {
-        // $perPage = 5;
-        // $findAllMenu = Menu::orderBy('created_at', 'desc');
-        // if ($request->per_page) {
-        //     $perPage = $request->per_page;
-        // }
-
-        // if ($request->filter) {
-        //     $findAllMenu = $findAllMenu->where('name', 'like', "%$request->filter%");
-        // }
-
-        // $findAllMenu = $findAllMenu->paginate($perPage);
-        // return MenuResource::collection($findAllMenu);
-
         $findAllMenu = Menu::orderBy('created_at', 'desc');
         if ($request->filter) {
             $findAllMenu = $findAllMenu->where('name', 'like', "%$request->filter%");

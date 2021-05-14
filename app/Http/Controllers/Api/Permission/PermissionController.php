@@ -19,10 +19,6 @@ class PermissionController extends Controller
         }
     }
 
-    public function getrole($id)
-    {
-    }
-
     public function permissionlist()
     {
         $permissions = Permission::All();
