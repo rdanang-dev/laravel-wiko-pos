@@ -21,13 +21,5 @@ class UserSeeder extends Seeder
         ]);
 
         $admin->assignRole('admin');
-
-        $adminJo = User::create([
-            'name' => 'joshua',
-            'email' => 'joshua@wiko.test',
-            'password' => bcrypt('joshuakeren123')
-        ]);
-
-        $adminJo->assignRole('admin');
     }
 }
