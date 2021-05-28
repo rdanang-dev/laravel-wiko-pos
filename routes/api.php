@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Menu\MenuController;
 use App\Http\Controllers\Api\User\UserController;
 use App\Http\Controllers\Api\Order\OrderController;
 use App\Http\Controllers\Api\Permission\PermissionController;
+use App\Http\Controllers\Api\Report\ReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -19,6 +20,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('menu/{id}', [MenuController::class, 'update'])->name('menu.updatepost');
     Route::post('user/{id}', [UserController::class, 'update'])->name('user.updatepost');
     Route::get('permissions', [PermissionController::class, 'permissionlist'])->name('permission.permisions');
+    Route::get('/report/dashboarddaily', [ReportController::class, 'dashboardDailyReport']);
+    Route::get('/report/dashboardweekly', [ReportController::class, 'dashboardWeeklyReport']);
+    Route::get('/report/dashboardyearly', [ReportController::class, 'dasboardYearlyReport']);
+    Route::get('/report/dashboardrecenttransaction', [ReportController::class, 'dashboardRecentTransaction']);
 });
+
+
 
 Route::post('auth', [AuthController::class, 'login'])->name('auth.login');
