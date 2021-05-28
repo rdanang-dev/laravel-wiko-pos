@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
-use App\Models\Category;
+use App\Models\Menu;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Menu extends Model
+class Category extends Model
 {
     use HasFactory;
     protected $guarded = "";
-    public function categorynya()
+
+    public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->hasMany(Menu::class);
     }
 }

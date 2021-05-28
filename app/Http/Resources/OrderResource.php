@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OrderResource extends JsonResource
@@ -24,7 +25,7 @@ class OrderResource extends JsonResource
             'customer_id' => $this->customer_id,
             'status' => $this->status,
             'details' => OrderDetailResource::collection($this->details),
-            'created_at' => $this->created_at,
+            'created_at' => Carbon::parse($this->created_at)->format('d-m-Y (H:i)'),
         ];
     }
 }

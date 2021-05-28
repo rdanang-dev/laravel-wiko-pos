@@ -44,9 +44,6 @@ class AuthController extends Controller
                         'password' => ['Password Not Valid']
                     ]
                 ], 400);
-                // return response()->json([
-                //     'message' => 'Password not valid',
-                // ], 401);
             }
         }
     }
