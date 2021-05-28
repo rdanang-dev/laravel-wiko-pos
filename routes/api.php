@@ -26,6 +26,4 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/report/dashboardrecenttransaction', [ReportController::class, 'dashboardRecentTransaction']);
 });
 
-
-
 Route::post('auth', [AuthController::class, 'login'])->name('auth.login');
