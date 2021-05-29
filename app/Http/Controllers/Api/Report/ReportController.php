@@ -58,8 +58,9 @@ class ReportController extends Controller
     public function dasboardYearlyReport()
     {
         $getYearly = Order::selectRaw("sum(total_price) as order_total, MIN(created_at) as first_trans , MAX(created_at) as last_trans,   YEAR(created_at) as tahun")
+            ->where('status', 2)
             ->groupBy('tahun')
-            ->having('tahun', 2021)
+            ->having('tahun', date('Y'))
             ->first();
 
         if (!$getYearly) {

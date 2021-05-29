@@ -22,6 +22,11 @@ class OrderController extends Controller
             $status = $request->status;
             $getAllOrder = $getAllOrder->where('status', $status);
         }
+        if ($request->filter) {
+            // $getAllOrder = $getAllOrder->where('name', 'like', "%$request->filter%");
+            $getAllOrder = $getAllOrder->where('created_at', 'like', "%$request->filter%")->orWhere('order_code', 'like', "%$request->filter%");
+            // $getAllOrder = $getAllOrder->whereLike(['name', 'email'], "%$request->filter%");
+        }
         $getAllOrder = $getAllOrder->get();
         return OrderResource::collection($getAllOrder);
     }
@@ -29,13 +34,7 @@ class OrderController extends Controller
     public function generateOrderCode(int $number)
     {
         $padNumber = str_pad(
-            $number,     // public function sumqty($id)
-            // {
-            //     $data = Menu::findOrFail($id);
-            //     $totalharga = 0;
-            //     $totalharga = $data->harga * request()->qty;
-            //     return response()->json($totalharga);
-            // }
+            $number,
             4,
             '0',
             STR_PAD_LEFT
