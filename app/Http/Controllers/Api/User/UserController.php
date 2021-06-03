@@ -36,30 +36,23 @@ class UserController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'role_id' => 'required'
         ]);
-
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
-
         $payloadUser = [
             'name' => request()->name,
             'email' => request()->email,
             'password' => bcrypt(request()->password)
         ];
-
         if (request('image')) {
             $payloadUser['image'] = Storage::disk('s3')->put('user', request()->file('image'), 'public');
         }
-
-
         $res = User::create(
             $payloadUser
         );
-
         if (request()->role_id) {
             $res->assignRole(request()->role_id);
         }
-
         return response()->json($res);
     }
 
@@ -72,41 +65,27 @@ class UserController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'role_id' => 'required'
         ]);
-
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
-
         $user = User::findOrFail($id);
-
         $payloadUser = [
             'name' => request()->name,
             'email' => request()->email,
         ];
-
         if (request()->password) {
             $payloadUser['password'] = bcrypt(request()->password);
         }
-
         if (request()->role_id) {
             $user->syncRoles(request()->role_id);
         }
-
-        // if (request()->file('image')) {
-        //     if (Storage::disk('s3')->exists($user->image)) {
-        //         Storage::disk('s3')->delete($user->image);
-        //     }
-        //     $payloadUser['image'] = Storage::disk('s3')->put('user', request()->file('image'), 'public');
-        // }
         if (request('image')) {
             if (Storage::disk('s3')->exists($user->image)) {
                 Storage::disk('s3')->delete($user->image);
             }
             $payloadUser['image'] = Storage::disk('s3')->put('user', request()->file('image'), 'public');
         }
-
         $user->update($payloadUser);
-
         return response()->json($user);
     }
 
@@ -131,11 +110,13 @@ class UserController extends Controller
 
     public function rolelist()
     {
-        $roles = Role::All();
-        if ($roles) {
-            return response()->json(['roles' => $roles], 200);
-        } else {
-            return response()->json(['message' => 'Failed'], 400);
-        }
+        $roles = Role::all();
+        dd($roles);
+        return response()->json($roles);
+        // if ($roles) {
+        //     return response()->json(['roles' => $roles], 200);
+        // } else {
+        //     return response()->json(['message' => 'Failed'], 400);
+        // }
     }
 }
