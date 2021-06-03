@@ -5,13 +5,25 @@ namespace App\Http\Controllers\Api\User;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $findAllUser = User::orderBy('created_at', 'desc')->get();
+        $findAllUser = User::orderBy('created_at', 'desc');
+        if ($request->filter) {
+            $findAllUser = $findAllUser->where('name', 'like', "%$request->filter%");
+        }
+        if ($request->privileges == "Admin") {
+            $findAllUser = $findAllUser->role('admin');
+        }
+        if ($request->privileges == "Kasir") {
+            $findAllUser = $findAllUser->role('kasir');
+        }
+        $findAllUser = $findAllUser->get();
         return UserResource::collection($findAllUser);
     }
 
@@ -115,5 +127,15 @@ class UserController extends Controller
             return response()->json(['message' => "Delete User Failed"], 500);
         }
         return response()->json($findUser, 200);
+    }
+
+    public function rolelist()
+    {
+        $roles = Role::All();
+        if ($roles) {
+            return response()->json(['roles' => $roles], 200);
+        } else {
+            return response()->json(['message' => 'Failed'], 400);
+        }
     }
 }
