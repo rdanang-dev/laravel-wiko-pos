@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\Category\CategoryController;
 use App\Http\Controllers\Api\Menu\MenuController;
 use App\Http\Controllers\Api\User\UserController;
 use App\Http\Controllers\Api\Order\OrderController;
+use App\Http\Controllers\Api\Permission\PermissionController;
 use App\Http\Controllers\Api\Report\ReportController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,7 +17,10 @@ Route::middleware('auth:sanctum')->group(function () {
     // User
     Route::resource('user', UserController::class);
     Route::post('user/{id}', [UserController::class, 'update']);
-    Route::get('user/rolelist', [UserController::class, 'rolelist']);
+    // Route::get('user/roles', [UserController::class, 'rolelist']);
+
+    // Roles
+    Route::get('roles', [PermissionController::class, 'rolelist']);
 
     //Products
     Route::resource('menu', MenuController::class);

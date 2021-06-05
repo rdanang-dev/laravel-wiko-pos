@@ -37,7 +37,7 @@ class UserController extends Controller
             'role_id' => 'required'
         ]);
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 400);
+            return response()->json(['message' => 'Task Failed', 'errors' => $validator->errors()], 400);
         }
         $payloadUser = [
             'name' => request()->name,
@@ -66,7 +66,7 @@ class UserController extends Controller
             'role_id' => 'required'
         ]);
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 400);
+            return response()->json(['message' => 'Task Failed', 'errors' => $validator->errors()], 400);
         }
         $user = User::findOrFail($id);
         $payloadUser = [
@@ -106,17 +106,5 @@ class UserController extends Controller
             return response()->json(['message' => "Delete User Failed"], 500);
         }
         return response()->json($findUser, 200);
-    }
-
-    public function rolelist()
-    {
-        $roles = Role::all();
-        dd($roles);
-        return response()->json($roles);
-        // if ($roles) {
-        //     return response()->json(['roles' => $roles], 200);
-        // } else {
-        //     return response()->json(['message' => 'Failed'], 400);
-        // }
     }
 }

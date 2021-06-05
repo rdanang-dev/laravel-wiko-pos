@@ -23,9 +23,7 @@ class OrderController extends Controller
             $getAllOrder = $getAllOrder->where('status', $status);
         }
         if ($request->filter) {
-            // $getAllOrder = $getAllOrder->where('name', 'like', "%$request->filter%");
-            $getAllOrder = $getAllOrder->where('created_at', 'like', "%$request->filter%")->orWhere('order_code', 'like', "%$request->filter%");
-            // $getAllOrder = $getAllOrder->whereLike(['name', 'email'], "%$request->filter%");
+            $getAllOrder = $getAllOrder->where('order_code', 'like', "%$request->filter%");
         }
         $getAllOrder = $getAllOrder->get();
         return OrderResource::collection($getAllOrder);

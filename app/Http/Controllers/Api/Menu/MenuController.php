@@ -40,7 +40,7 @@ class MenuController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['message' => 'Failed', 'errors' => $validator->errors()], 400);
+            return response()->json(['message' => 'Task Failed', 'errors' => $validator->errors()], 400);
         }
 
         $payloadMenu = [
@@ -62,11 +62,20 @@ class MenuController extends Controller
 
     public function update($id)
     {
-        request()->validate([
+        // request()->validate([
+        //     'name' => "required|unique:menus,name,$id",
+        //     'price' => 'required',
+        //     'image' => 'nullable|file|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        // ]);
+        $validator = validator(request()->all(), [
             'name' => "required|unique:menus,name,$id",
             'price' => 'required',
             'image' => 'nullable|file|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json(['message' => 'Task Failed', 'errors' => $validator->errors()], 400);
+        }
 
         $findMenu = Menu::findOrFail($id);
 
