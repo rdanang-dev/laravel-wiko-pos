@@ -36,7 +36,7 @@ class MenuController extends Controller
         $validator = validator(request()->all(), [
             'name' => 'required|unique:menus,name',
             'price' => 'required',
-            'image' => 'nullable|file|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($validator->fails()) {

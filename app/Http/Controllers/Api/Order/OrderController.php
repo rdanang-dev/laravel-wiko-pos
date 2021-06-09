@@ -25,6 +25,15 @@ class OrderController extends Controller
         if ($request->filter) {
             $getAllOrder = $getAllOrder->where('order_code', 'like', "%$request->filter%");
         }
+        if ($request->fromdate) {
+            $fromdate = $request->fromdate;
+            if ($request->fromdate && $request->todate) {
+                $todate = Carbon::parse($request->todate)->addDay();
+                $getAllOrder = $getAllOrder->whereBetween('created_at', [$fromdate . '%', $todate . '%']);
+            } else {
+                $getAllOrder = $getAllOrder->where('created_at', 'like', "$fromdate%");
+            }
+        }
         $getAllOrder = $getAllOrder->get();
         return OrderResource::collection($getAllOrder);
     }
