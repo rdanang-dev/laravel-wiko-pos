@@ -9,11 +9,13 @@ class Order extends Model
 {
     use HasFactory;
 
-    public function details(){
+    public function details()
+    {
         return $this->hasMany(OrderDetail::class);
     }
 
-    public function employee(){
+    public function employee()
+    {
         return $this->belongsTo(User::class);
     }
 }

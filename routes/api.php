@@ -33,11 +33,14 @@ Route::middleware('auth:sanctum')->group(function () {
     // Order
     Route::resource('order', OrderController::class);
 
-    // Report
+    // Dashboard Report
     Route::get('/report/dashboarddaily', [ReportController::class, 'dashboardDailyReport']);
     Route::get('/report/dashboardweekly', [ReportController::class, 'dashboardWeeklyReport']);
     Route::get('/report/dashboardyearly', [ReportController::class, 'dasboardYearlyReport']);
     Route::get('/report/dashboardrecenttransaction', [ReportController::class, 'dashboardRecentTransaction']);
+
+    // All Report
+    Route::get('/report/alltransaction', [ReportController::class, 'allTransactionReport']);
 });
 
 //Login

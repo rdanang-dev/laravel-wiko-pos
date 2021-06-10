@@ -11,11 +11,13 @@ class OrderDetail extends Model
 
     protected $guarded = ['id'];
 
-    public function order(){
+    public function order()
+    {
         return $this->belongsTo(Order::class);
     }
 
-    public function menu(){
+    public function menu()
+    {
         return $this->belongsTo(Menu::class);
     }
 }

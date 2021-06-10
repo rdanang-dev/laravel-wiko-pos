@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Report;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AllTransactionReportResource;
 use App\Http\Resources\DashboardDailyReportResource;
 use App\Http\Resources\DashboardRecentTransactionResource;
 use App\Http\Resources\DashboardWeeklyReportResource;
@@ -86,5 +87,20 @@ class ReportController extends Controller
             ->get();
         // return response()->json(['data' => $getRecent]);
         return DashboardRecentTransactionResource::collection($getRecent);
+    }
+
+    public function allTransactionReport()
+    {
+        $getAll = Order::selectRaw("sum(total_price) as order_total,employee_id, order_code, created_at, id")
+            ->with('employee')
+            ->with('details')
+            // ->with('menu')
+            // ->with('order')
+            ->where('status', 2)
+            ->groupBy('created_at')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        // return response()->json(['data' => $getAll]);
+        return AllTransactionReportResource::collection($getAll);
     }
 }
