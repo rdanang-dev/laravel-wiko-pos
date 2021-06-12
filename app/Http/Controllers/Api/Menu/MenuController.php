@@ -18,7 +18,6 @@ class MenuController extends Controller
         if ($request->filter) {
             $findAllMenu = $findAllMenu->where('name', 'like', "%$request->filter%");
         }
-
         if ($request->has('per_page')) {
             $perPage = 5;
             if ($request->per_page) {
@@ -38,25 +37,19 @@ class MenuController extends Controller
             'price' => 'required',
             'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
         if ($validator->fails()) {
             return response()->json(['message' => 'Task Failed', 'errors' => $validator->errors()], 400);
         }
-
         $payloadMenu = [
             'name' => request()->name,
-            'slug' => Str::slug(request()->name),
             'price' => request()->price,
         ];
-
         if (request('image')) {
             $payloadMenu['image'] = Storage::disk('s3')->put('menu', request()->file('image'), 'public');
         }
-
         $res = Menu::create(
             $payloadMenu
         );
-
         return response()->json($res);
     }
 
@@ -72,26 +65,20 @@ class MenuController extends Controller
             'price' => 'required',
             'image' => 'nullable|file|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
         if ($validator->fails()) {
             return response()->json(['message' => 'Task Failed', 'errors' => $validator->errors()], 400);
         }
-
         $findMenu = Menu::findOrFail($id);
-
         $payloadMenu = [
             'name' => request()->name,
-            'slug' => Str::slug(request()->name),
             'price' => request()->price,
         ];
-
         if (request()->file('image')) {
             if (Storage::disk('s3')->exists($findMenu->image)) {
                 Storage::disk('s3')->delete($findMenu->image);
             }
             $payloadMenu['image'] = Storage::disk('s3')->put('menu', request()->file('image'), 'public');
         }
-
         $findMenu->update(
             $payloadMenu
         );
