@@ -18,7 +18,7 @@ class WeeklyReportResource extends JsonResource
         return [
             'order_total' => $this->order_total,
             'total_transaction' => $this->total_transaction,
-            'order_date' => $this->order_date,
+            'order_date' => Carbon::parse($this->order_date)->format('j F, Y'),
         ];
     }
 }

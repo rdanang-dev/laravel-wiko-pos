@@ -66,8 +66,6 @@ class OrderController extends Controller
             if (!$getOrder) {
                 return response()->json(['message' => 'Order Not Found'], 404);
             }
-            // Update Customer
-            // $getOrder->customer_id = $request->customer_id;
             $totalPrice = 0;
             if ($request->has('checkout')) {
                 $getOrder->status = 2;
@@ -97,6 +95,8 @@ class OrderController extends Controller
                 $totalPrice += $subTotal;
             }
             $getOrder->total_price = $totalPrice - $discountValue;
+            $getOrder->cash = request()->cash;
+            $getOrder->change = request()->cash - $getOrder->total_price;
             $getOrder->save();
             DB::commit();
             return response()->json(['message' => '']);
@@ -126,7 +126,6 @@ class OrderController extends Controller
             $createOrder->employee_id = auth()->id();
             $createOrder->order_code = $this->generateOrderCode($orderNumber);
             $createOrder->order_number = $orderNumber;
-            // $createOrder->customer_id = $request->customer_id ?? null;
             $createOrder->status = 1; // On Process
             $createOrder->save();
 

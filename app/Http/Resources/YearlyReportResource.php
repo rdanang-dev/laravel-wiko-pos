@@ -17,8 +17,9 @@ class YearlyReportResource extends JsonResource
     {
         return [
             'order_total' => $this->order_total,
-            'first_trans' => Carbon::parse($this->first_trans)->format('d-m-Y'),
-            'last_trans' => Carbon::parse($this->last_trans)->format('d-m-Y'),
+            'first_trans' => Carbon::parse($this->first_trans)->format('j F, Y'),
+            'last_trans' => Carbon::parse($this->last_trans)->format('j F, Y'),
+            'total_transaction' => $this->total_transaction,
             'tahun' => $this->tahun,
         ];
     }

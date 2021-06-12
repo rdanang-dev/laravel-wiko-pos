@@ -20,6 +20,11 @@ class AllTransactionReportResource extends JsonResource
             'employee_id' => $this->employee_id,
             'order_code' => $this->order_code,
             'order_date' => Carbon::parse($this->created_at)->format('j F, y'),
+            'discount_percentage' => $this->discount_percentage,
+            'discount_value' => $this->discount_value,
+            'cash' => $this->cash,
+            'change' => $this->change,
+            'total_price' => $this->total_price,
             'employee' => $this->employee,
             'details' => $this->details
         ];
