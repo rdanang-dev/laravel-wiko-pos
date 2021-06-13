@@ -43,6 +43,7 @@ class MenuController extends Controller
         $payloadMenu = [
             'name' => request()->name,
             'price' => request()->price,
+            'category_id' => request()->category_id,
         ];
         if (request('image')) {
             $payloadMenu['image'] = Storage::disk('s3')->put('menu', request()->file('image'), 'public');
@@ -72,6 +73,7 @@ class MenuController extends Controller
         $payloadMenu = [
             'name' => request()->name,
             'price' => request()->price,
+            'category_id' => request()->category_id,
         ];
         if (request()->file('image')) {
             if (Storage::disk('s3')->exists($findMenu->image)) {

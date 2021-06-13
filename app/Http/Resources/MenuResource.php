@@ -18,7 +18,7 @@ class MenuResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'slug' => $this->slug,
+            'category_id' => $this->category_id,
             'price' => $this->price,
             'image' => $this->image,
             'image_url' => $this->image ? Storage::disk('s3')->url($this->image) : 'https://via.placeholder.com/600',
