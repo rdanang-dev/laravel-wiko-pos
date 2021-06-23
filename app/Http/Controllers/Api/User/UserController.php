@@ -33,7 +33,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users,email',
             'password' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'image' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
             'role_id' => 'required'
         ]);
         if ($validator->fails()) {
