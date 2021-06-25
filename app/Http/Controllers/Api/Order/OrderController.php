@@ -53,6 +53,7 @@ class OrderController extends Controller
     public function show($id)
     {
         $getOrder = Order::with('details')->find($id);
+        // $getOrder = Order::with(['details, employee'])->find($id);
         return new OrderResource($getOrder);
     }
 
@@ -154,9 +155,5 @@ class OrderController extends Controller
             DB::rollBack();
             throw $th;
         }
-    }
-
-    public function checkout($id)
-    {
     }
 }

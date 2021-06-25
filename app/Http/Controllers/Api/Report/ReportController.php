@@ -8,10 +8,8 @@ use App\Http\Resources\DailyReportResource;
 use App\Http\Resources\DashboardDailyReportResource;
 use App\Http\Resources\DashboardRecentTransactionResource;
 use App\Http\Resources\DashboardWeeklyReportResource;
-// use App\Http\Resources\DailyReportResource;
-// use App\Http\Resources\DashboardWeeklyReportResource;
-// use App\Http\Resources\YearlyReportResource;
 use App\Http\Resources\DashboardYearlyReportResource;
+use App\Http\Resources\MonthlyReportResource;
 use App\Http\Resources\WeeklyReportResource;
 use App\Http\Resources\YearlyReportResource;
 use App\Models\Order;
@@ -52,7 +50,6 @@ class ReportController extends Controller
             ->having('order_date', '<=', $currentDateString)
             ->get();
         return DashboardWeeklyReportResource::collection($getWeekly);
-        // return response()->json(['data' => $getWeekly]);
     }
 
     public function dasboardYearlyReport()
@@ -70,7 +67,6 @@ class ReportController extends Controller
             ]]);
         }
         return new DashboardYearlyReportResource($getYearly);
-        // return response()->json(['data' => $getYearly]);
     }
 
     public function dashboardRecentTransaction()
@@ -83,26 +79,14 @@ class ReportController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
         return DashboardRecentTransactionResource::collection($getRecent);
-        // return response()->json(['data' => $getRecent]);
     }
 
     public function dailyReport()
     {
-        $currentDate = Carbon::now();
-        $currentDateString = $currentDate->toDateString();
-        $getDaily = Order::selectRaw("sum(total_price) as order_total,count(id) as total_transaction, (DATE_FORMAT(created_at,'%Y-%m-%d')) as order_date")
+        $getDaily = Order::selectRaw("total_price,order_code")
             ->where('status', 2)
-            ->groupBy('order_date')
-            ->having('order_date', $currentDateString)
-            ->first();
-        if (!$getDaily) {
-            return response()->json(['data' => [
-                'order_total' => 0,
-                'total_transaction' => 0,
-                'order_date' => Carbon::now()->format('j F, Y'),
-            ]]);
-        }
-        return new DailyReportResource($getDaily);
+            ->where('created_at', '>=', Carbon::today()->toDateString())->get();
+        return DailyReportResource::collection($getDaily);
     }
 
     public function weeklyReport()
@@ -119,32 +103,35 @@ class ReportController extends Controller
         return WeeklyReportResource::collection($getWeekly);
     }
 
+    public function monthlyReport()
+    {
+        $getMonthly = Order::selectRaw("sum(total_price) as order_total,count(id) as total_transaction, (DATE_FORMAT(created_at,'%Y-%m-%d')) as order_date, MONTH(created_at) as bulan")
+            ->where('status', 2)
+            ->groupBy('order_date')
+            ->having('bulan', date('m'))
+            ->get();
+        return MonthlyReportResource::collection($getMonthly);
+    }
+
     public function yearlyReport()
     {
-        $getYearly = Order::selectRaw("sum(total_price) as order_total, MIN(created_at) as first_trans , MAX(created_at) as last_trans, YEAR(created_at) as tahun, count(id) as total_transaction")
+        $getYearly = Order::selectRaw("sum(total_price) as order_total, MIN(created_at) as first_trans , MAX(created_at) as last_trans,MONTH(created_at) as bulan, YEAR(created_at) as tahun, count(id) as total_transaction")
             ->where('status', 2)
-            ->groupBy('tahun')
+            ->groupBy('bulan')
             ->having('tahun', date('Y'))
-            ->first();
-        if (!$getYearly) {
-            // return response()->json(['data' => [
-            //     'order_total' => 0,
-            //     'bulan' => 'no transaction yet',
-            //     'tahun' => Carbon::now()->format('Y'),
-            // ]]);
-        }
-        return new YearlyReportResource($getYearly);
+            ->get();
+        return YearlyReportResource::collection($getYearly);
     }
 
     public function allTransactionReport(Request $request)
     {
-        $getAll = Order::selectRaw("sum(total_price) as order_total,employee_id, order_code, created_at, id, discount_percentage, discount_value, cash, `change`, total_price")
+        $getAll = Order::selectRaw("sum(total_price) as order_total,order_number,employee_id, order_code, created_at, id, discount_percentage, discount_value, cash, `change`, total_price")
             ->with(['employee', 'details.menu'])
             ->where('status', 2)
             ->groupBy('created_at')
             ->orderBy('created_at', 'desc');
         if ($request->filter) {
-            $getAll = $getAll->where('order_code', 'like', "%$request->filter%");
+            $getAll = $getAll->where('order_code', 'like', "%$request->filter%")->orWhere('total_price', 'like', "%$request->filter%");
         }
         if ($request->fromdate) {
             $fromdate = $request->fromdate;

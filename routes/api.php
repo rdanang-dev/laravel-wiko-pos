@@ -42,6 +42,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Report
     Route::get('/report/daily', [ReportController::class, 'dailyReport']);
     Route::get('/report/weekly', [ReportController::class, 'weeklyReport']);
+    Route::get('/report/monthly', [ReportController::class, 'monthlyReport']);
     Route::get('/report/yearly', [ReportController::class, 'yearlyReport']);
     Route::get('/report/alltransaction', [ReportController::class, 'allTransactionReport']);
 });

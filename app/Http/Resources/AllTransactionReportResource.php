@@ -17,6 +17,7 @@ class AllTransactionReportResource extends JsonResource
     {
         return [
             'order_total' => $this->order_total,
+            'order_number' => $this->order_number,
             'employee_id' => $this->employee_id,
             'order_code' => $this->order_code,
             'order_date' => Carbon::parse($this->created_at)->format('j F, y'),
