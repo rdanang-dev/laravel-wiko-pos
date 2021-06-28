@@ -19,7 +19,7 @@ class MenuController extends Controller
             $findAllMenu = $findAllMenu->where('name', 'like', "%$request->filter%");
         }
         if ($request->has('per_page')) {
-            $perPage = 5;
+            $perPage = 7;
             if ($request->per_page) {
                 $perPage = $request->per_page;
                 $findAllMenu = $findAllMenu->paginate($perPage);

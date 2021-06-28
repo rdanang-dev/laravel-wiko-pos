@@ -75,7 +75,7 @@ class ReportController extends Controller
             ->with('employee')
             ->where('status', 2)
             ->groupBy('created_at')
-            ->limit(5)
+            ->limit(6)
             ->orderBy('created_at', 'desc')
             ->get();
         return DashboardRecentTransactionResource::collection($getRecent);
@@ -142,7 +142,15 @@ class ReportController extends Controller
                 $getAll = $getAll->where('created_at', 'like', "$fromdate%");
             }
         }
-        $getAll = $getAll->get();
+        if ($request->has('per_page')) {
+            $perPage = 5;
+            if ($request->per_page) {
+                $perPage = $request->per_page;
+                $getAll = $getAll->paginate($perPage);
+            }
+        } else {
+            $getAll = $getAll->get();
+        }
         return AllTransactionReportResource::collection($getAll);
     }
 }
