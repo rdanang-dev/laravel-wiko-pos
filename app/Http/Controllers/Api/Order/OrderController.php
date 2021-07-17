@@ -52,8 +52,7 @@ class OrderController extends Controller
 
     public function show($id)
     {
-        $getOrder = Order::with('details')->find($id);
-        // $getOrder = Order::with(['details, employee'])->find($id);
+        $getOrder = Order::with(['details', 'employee'])->find($id);
         return new OrderResource($getOrder);
     }
 
@@ -84,7 +83,6 @@ class OrderController extends Controller
             $getOrder->discount_value = $discountValue;
 
             foreach ($request->details as $data) {
-
                 $orderDetailData = [
                     'menu_id' => $data['menu_id'],
                     'price' => $data['price'],
