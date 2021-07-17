@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MonthlyReportResource extends JsonResource
+class ExportCustomYearlyResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -13,14 +13,16 @@ class MonthlyReportResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
+
+
     public function toArray($request)
     {
         return [
             'order_total' => $this->order_total,
+            'first_trans' => Carbon::parse($this->first_trans)->format('j F, Y'),
+            'last_trans' => Carbon::parse($this->last_trans)->format('j F, Y'),
             'total_transaction' => $this->total_transaction,
-            'bulan' => $this->bulan,
-            'bulanTahun' => Carbon::parse($this->order_date)->format('F, Y'),
-            'order_date' => Carbon::parse($this->order_date)->format('j F, Y'),
+            'bulan' => Carbon::parse($this->bulan)->format('F, Y'),
         ];
     }
 }

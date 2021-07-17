@@ -9,6 +9,9 @@ use App\Http\Resources\DashboardDailyReportResource;
 use App\Http\Resources\DashboardRecentTransactionResource;
 use App\Http\Resources\DashboardWeeklyReportResource;
 use App\Http\Resources\DashboardYearlyReportResource;
+use App\Http\Resources\ExportCustomResource;
+use App\Http\Resources\ExportCustomWeekMonthResource;
+use App\Http\Resources\ExportCustomYearlyResource;
 use App\Http\Resources\MonthlyReportResource;
 use App\Http\Resources\WeeklyReportResource;
 use App\Http\Resources\YearlyReportResource;
@@ -83,7 +86,8 @@ class ReportController extends Controller
 
     public function dailyReport()
     {
-        $getDaily = Order::selectRaw("total_price,order_code")
+        $getDaily = Order::selectRaw("total_price,order_code,employee_id")
+            ->with('employee')
             ->where('status', 2)
             ->where('created_at', '>=', Carbon::today()->toDateString())->get();
         return DailyReportResource::collection($getDaily);
@@ -125,7 +129,7 @@ class ReportController extends Controller
 
     public function allTransactionReport(Request $request)
     {
-        $getAll = Order::selectRaw("sum(total_price) as order_total,order_number,employee_id, order_code, created_at, id, discount_percentage, discount_value, cash, `change`, total_price")
+        $getAll = Order::selectRaw("sum(total_price) as order_total, order_number, employee_id, order_code, created_at, id, discount_percentage, discount_value, cash, `change`, total_price")
             ->with(['employee', 'details.menu'])
             ->where('status', 2)
             ->groupBy('created_at')
@@ -139,7 +143,7 @@ class ReportController extends Controller
                 $todate = Carbon::parse($request->todate)->addDay();
                 $getAll = $getAll->whereBetween('created_at', [$fromdate . '%', $todate . '%']);
             } else {
-                $getAll = $getAll->where('created_at', 'like', "$fromdate%");
+                $getAll = $getAll->whereDate('created_at', '=', "$fromdate");
             }
         }
         if ($request->has('per_page')) {
@@ -152,5 +156,45 @@ class ReportController extends Controller
             $getAll = $getAll->get();
         }
         return AllTransactionReportResource::collection($getAll);
+    }
+
+    public function exportCustom(Request $request)
+    {
+        $getAll = Order::selectRaw("sum(total_price) as order_total, order_number, employee_id, order_code, created_at, id, discount_percentage, discount_value, cash, `change`, total_price")
+            ->with(['employee', 'details.menu'])
+            ->where('status', 2)
+            ->groupBy('created_at')
+            ->orderBy('created_at', 'desc');
+        if ($request->fromdate) {
+            $fromdate = $request->fromdate;
+            if ($request->fromdate && $request->todate) {
+                $fromdate = Carbon::parse($request->fromdate)->subDays(1);
+                $todate = Carbon::parse($request->todate);
+                $gap = $fromdate->diffInDays($todate);
+                if ($gap < 32) {
+                    $smallGap = Order::selectRaw("sum(total_price) as order_total,count(id) as total_transaction, (DATE_FORMAT(created_at,'%Y-%m-%d')) as order_date")
+                        ->where('status', 2)
+                        ->groupBy('order_date')
+                        ->having('order_date', ">=", $fromdate)
+                        ->having('order_date', "<=", $todate)
+                        ->get();
+                    return ExportCustomWeekMonthResource::collection($smallGap);
+                }
+                if ($gap > 32) {
+                    $bigGap = Order::selectRaw("sum(total_price) as order_total, (DATE_FORMAT(created_at,'%Y-%m')) as bulan, count(id) as total_transaction, MIN(created_at) as first_trans , MAX(created_at) as last_trans")
+                        ->whereBetween('created_at', [$fromdate . '%', $todate . '%'])
+                        ->where('status', 2)
+                        ->groupBy('bulan')
+                        ->get();
+                    // return response()->json(['data' => $bigGap, 'gap' => $gap]);
+                    // $bigGap->extra = $gap;
+                    return ExportCustomYearlyResource::collection($bigGap, $gap);
+                    // return new ExportCustomYearlyResource($bigGap, $gap);
+                }
+            } else {
+                $getAll = $getAll->whereDate('created_at', '=', "$fromdate")->get();
+                return ExportCustomResource::collection($getAll);
+            }
+        }
     }
 }

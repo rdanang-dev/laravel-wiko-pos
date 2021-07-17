@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Http\Resources;
+
+use Carbon\Carbon;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class ExportCustomResource extends JsonResource
+{
+    /**
+     * Transform the resource into an array.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function toArray($request)
+    {
+        return [
+            'order_total' => $this->order_total,
+            'order_number' => $this->order_number,
+            'employee_id' => $this->employee_id,
+            'order_code' => $this->order_code,
+            'order_date' => Carbon::parse($this->created_at)->format('j F, y'),
+            'startDateNumber' => Carbon::parse($this->created_at)->format('j'),
+            'startDateNumber' => Carbon::parse($this->created_at)->format('j'),
+            'discount_percentage' => $this->discount_percentage,
+            'discount_value' => $this->discount_value,
+            'cash' => $this->cash,
+            'change' => $this->change,
+            'total_price' => $this->total_price,
+            'employee' => $this->employee,
+            'details' => $this->details
+        ];
+    }
+}

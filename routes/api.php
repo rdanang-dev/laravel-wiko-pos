@@ -45,6 +45,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/report/monthly', [ReportController::class, 'monthlyReport']);
     Route::get('/report/yearly', [ReportController::class, 'yearlyReport']);
     Route::get('/report/alltransaction', [ReportController::class, 'allTransactionReport']);
+    Route::get('/report/exportcustom', [ReportController::class, 'exportcustom']);
 });
 
 //Login

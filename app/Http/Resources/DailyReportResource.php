@@ -18,7 +18,8 @@ class DailyReportResource extends JsonResource
         return [
             'total_price' => $this->total_price,
             'order_code' => $this->order_code,
-            // 'created_at' => Carbon::parse($this->created_at)->format('j F, Y')
+            'date' => Carbon::today()->format('j F, Y'),
+            'employee' => $this->employee,
         ];
     }
 }
