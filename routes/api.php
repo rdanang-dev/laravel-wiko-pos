@@ -32,6 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Order
     Route::resource('order', OrderController::class);
+    Route::get('getcount', [OrderController::class, 'getUnfinishedTransactionCount']);
 
     // Dashboard Report
     Route::get('/report/dashboarddaily', [ReportController::class, 'dashboardDailyReport']);

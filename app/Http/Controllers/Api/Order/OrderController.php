@@ -154,4 +154,11 @@ class OrderController extends Controller
             throw $th;
         }
     }
+
+
+    public function getUnfinishedTransactionCount()
+    {
+        $getAllOrder = Order::where('status', '=', 1)->get()->count();
+        return $getAllOrder;
+    }
 }
