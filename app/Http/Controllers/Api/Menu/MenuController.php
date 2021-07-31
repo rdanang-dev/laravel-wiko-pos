@@ -7,11 +7,9 @@ use App\Http\Resources\MenuResource;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class MenuController extends Controller
 {
-
     public function index(Request $request)
     {
         $findAllMenu = Menu::orderBy('created_at', 'desc');

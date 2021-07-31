@@ -15,13 +15,10 @@ class AuthController extends Controller
             'email' => 'required',
             'password' => 'required',
         ]);
-
         if ($validator->fails()) {
             return response()->json(['message' => 'Login Gagal', 'errors' => $validator->errors()], 400);
         }
-
         $user = User::with('roles')->where('email', request()->email)->first();
-
         if (!$user) {
             return response()->json([
                 'message' => "User Not Found!",
@@ -58,7 +55,6 @@ class AuthController extends Controller
     {
         $user = request()->user();
         $user->currentAccessToken()->delete();
-
         return response()->json([
             'message' => 'Logged out Successfully'
         ], 200);

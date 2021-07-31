@@ -16,7 +16,5 @@ class PermissionController extends Controller
         } else {
             return response()->json(['message' => 'Failed'], 400);
         }
-        // dd($roles);
-        // return response()->json($roles);
     }
 }

@@ -62,7 +62,6 @@ class OrderController extends Controller
 
         try {
             $getOrder = Order::find($id);
-
             if (!$getOrder) {
                 return response()->json(['message' => 'Order Not Found'], 404);
             }
