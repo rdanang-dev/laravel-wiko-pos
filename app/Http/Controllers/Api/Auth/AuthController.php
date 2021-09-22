@@ -25,10 +25,10 @@ class AuthController extends Controller
                 'errors' => [
                     'email' => ['User Not Found']
                 ]
-            ], 400);
+            ], 401);
         } else if ($user) {
-            $token = $user->createToken('token')->plainTextToken;
             if (Hash::check(request()->password, $user->password)) {
+                $token = $user->createToken('token')->plainTextToken;
                 return response()->json([
                     'message' => 'Success',
                     'user' => $user,
@@ -40,7 +40,7 @@ class AuthController extends Controller
                     'errors' => [
                         'password' => ['Password Not Valid']
                     ]
-                ], 400);
+                ], 401);
             }
         }
     }
